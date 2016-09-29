@@ -1,5 +1,3 @@
-*.class
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -14,3 +12,12 @@ hs_err_pid*
 # class files
 bin/
 *.class
+
+# eclipse stuff
+.classpath
+.project
+.settings/
+.metadata/
+.recommenders/
+
+.gitignore~
