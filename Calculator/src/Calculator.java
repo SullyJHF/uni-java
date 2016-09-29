@@ -47,4 +47,21 @@ public class Calculator {
 
 		return x;
 	}
+	
+	// trig functions
+	public double cosine(int x) {
+		return Math.cos(degToRad(x));
+	}
+	
+	public double sine(int x) {
+		return Math.sin(degToRad(x));
+	}
+	
+	public double tangent(int x) {
+		return Math.tan(degToRad(x));
+	}
+	
+	private double degToRad(int x) {
+		return x * Math.PI / 180;
+	}
 }

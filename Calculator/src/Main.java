@@ -21,10 +21,17 @@ public class Main {
 		
 		double[] q = calc.quadratic();
 		if(q != null) {
-			System.out.printf("%d x^2 + %d x + %d = 0 has the roots %d and %d", a, b, c, q[0], q[1]);
+			System.out.printf("%d x^2 + %d x + %d = 0 has the roots %f and %f%n", a, b, c, q[0], q[1]);
+		} else {
+			System.out.println("Discriminant < 0 so no real roots%n");
 		}
-		
+
 		Circle circle = new Circle(4.5F);
 		circle.printState();
+		
+		int angle = 30;
+		System.out.printf("sin of %d is %f%n", angle, calc.sine(angle));
+		System.out.printf("cos of %d is %f%n", angle, calc.cosine(angle));
+		System.out.printf("tan of %d is %f%n", angle, calc.tangent(angle));
 	}
 }
