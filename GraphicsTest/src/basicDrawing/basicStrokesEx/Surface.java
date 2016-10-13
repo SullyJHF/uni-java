@@ -1,4 +1,4 @@
-package basicStrokesEx;
+package basicDrawing.basicStrokesEx;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics;

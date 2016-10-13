@@ -1,4 +1,4 @@
-package pointsEx;
+package basicDrawing.pointsEx;
 
 import java.awt.Color;
 import java.awt.Graphics;

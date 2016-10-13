@@ -1,30 +1,29 @@
-package linesEx;
+package basicDrawing.capsEx;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class LinesEx extends JFrame {
-  private static final long serialVersionUID = 1L;
+public class CapsEx extends JFrame {
+  private static final long serialVersionUID = 8981356632481788229L;
 
-  public LinesEx() {
+  public CapsEx() {
     initUI();
   }
-
+  
   private void initUI() {
     add(new Surface());
-
-    setTitle("Lines");
-    setSize(350, 250);
+    setTitle("Caps");
+    setSize(280, 270);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
-
+  
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        LinesEx ex = new LinesEx();
+        CapsEx ex = new CapsEx();
         ex.setVisible(true);
       }
     });

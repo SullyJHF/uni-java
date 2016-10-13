@@ -1,21 +1,21 @@
-package basicStrokesEx;
+package basicDrawing.linesEx;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class BasicStrokesEx extends JFrame {
-  private static final long serialVersionUID = 3626660178058839841L;
+public class LinesEx extends JFrame {
+  private static final long serialVersionUID = 1L;
 
-  public BasicStrokesEx() {
+  public LinesEx() {
     initUI();
   }
 
   private void initUI() {
     add(new Surface());
 
-    setTitle("Basic strokes");
-    setSize(280, 270);
+    setTitle("Lines");
+    setSize(350, 250);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
@@ -24,7 +24,7 @@ public class BasicStrokesEx extends JFrame {
     EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        BasicStrokesEx ex = new BasicStrokesEx();
+        LinesEx ex = new LinesEx();
         ex.setVisible(true);
       }
     });

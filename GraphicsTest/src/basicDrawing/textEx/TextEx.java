@@ -1,4 +1,4 @@
-package textEx;
+package basicDrawing.textEx;
 
 import java.awt.EventQueue;
 

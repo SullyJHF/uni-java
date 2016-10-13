@@ -1,4 +1,4 @@
-package joinsEx;
+package basicDrawing.joinsEx;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics;

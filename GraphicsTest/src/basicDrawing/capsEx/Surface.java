@@ -1,4 +1,4 @@
-package capsEx;
+package basicDrawing.capsEx;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics;
