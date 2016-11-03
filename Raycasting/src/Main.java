@@ -49,24 +49,18 @@ public class Main extends JFrame implements KeyListener {
      * down = 39
      * right = 40
      */
-    if (e.getKeyCode() == 65) left = true;
+    if (e.getKeyCode() == 65) rotLeft = true;
     if (e.getKeyCode() == 87) up = true;
-    if (e.getKeyCode() == 68) right = true;
+    if (e.getKeyCode() == 68) rotRight = true;
     if (e.getKeyCode() == 83) down = true;
-    
-    if(e.getKeyCode() == 37) rotLeft = true;
-    if(e.getKeyCode() == 39) rotRight = true;
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-    if (e.getKeyCode() == 65) left = false;
+    if (e.getKeyCode() == 65) rotLeft = false;
     if (e.getKeyCode() == 87) up = false;
-    if (e.getKeyCode() == 68) right = false;
+    if (e.getKeyCode() == 68) rotRight = false;
     if (e.getKeyCode() == 83) down = false;
-
-    if(e.getKeyCode() == 37) rotLeft = false;
-    if(e.getKeyCode() == 39) rotRight = false;
   }
 
   @Override

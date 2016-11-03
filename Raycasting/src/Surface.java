@@ -213,8 +213,6 @@ public class Surface extends JPanel implements ActionListener {
     if (Main.rotRight) spinRight();
     if (Main.up) moveForward();
     if (Main.down) moveBackwards();
-    if (Main.left) moveLeft();
-    if (Main.right) moveRight();
     g2d.dispose();
   }
 
@@ -237,29 +235,7 @@ public class Surface extends JPanel implements ActionListener {
     if (worldMap[(int) posX][(int) (posY + dirY * moveSpeed)] == 0) posY += dirY * moveSpeed;
   }
 
-  private void moveLeft() {
-    double acosDirX = Math.acos(dirX);
-    double newDirX = Math.acos(dirX) + Math.toRadians(-90);
-    if (newDirX < 0) newDirX += Math.PI;
-    newDirX = Math.cos(newDirX);
-
-    double asinDirY = Math.acos(dirY);
-    double newDirY = Math.acos(dirY) + Math.toRadians(-90);
-    if (newDirY < 0) newDirY += Math.PI;
-    newDirY = Math.cos(newDirY);
-
-    posX += newDirX * moveSpeed;
-    posY -= newDirY * moveSpeed;
-  }
-
-  private void moveRight() {
-
-  }
-
   private void spinRight() {
-    // System.out.printf("dirX: %.2f, dirY: %.2f dirX: %.2f, dirY: %.2f%n",
-    // dirX, dirY, Math.toDegrees(Math.acos(dirX)),
-    // Math.toDegrees(Math.acos(dirY)));
     double oldDirX = dirX;
     dirX = dirX * Math.cos(-rotSpeed) - dirY * Math.sin(-rotSpeed);
     dirY = oldDirX * Math.sin(-rotSpeed) + dirY * Math.cos(-rotSpeed);
