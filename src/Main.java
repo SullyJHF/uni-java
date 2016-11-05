@@ -17,6 +17,7 @@ public class Main extends JFrame implements KeyListener {
   }
 
   private void initUI() {
+    Map m = new Map("res/map0.png");
     add(new Surface());
 
     pack();
