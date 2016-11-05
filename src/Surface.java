@@ -205,14 +205,24 @@ public class Surface extends JPanel implements ActionListener {
       updateFps((int) (1.0 / frameTime));
     }
     g2d.drawString(this.fps, 0, 18);
+    g2d.drawString("dirX: " + String.valueOf(dirX), 0, 50);
+    g2d.drawString("dirY: " + String.valueOf(dirY), 0, 75);
+    double newDirX = Math.toDegrees(Math.acos(dirX));
+    double newDirY = Math.toDegrees(Math.acos(dirY));
+    g2d.drawString("newDirX: " + String.valueOf(newDirX), 0, 100);
+    g2d.drawString("newDirY: " + String.valueOf(newDirY), 0, 125);
 
-    // find out how to do some fps bullshit here
+    g2d.drawString("posX: " + String.valueOf(posX), 260, 50);
+    g2d.drawString("posY: " + String.valueOf(posY), 260, 75);
+
     moveSpeed = frameTime * 5.0;
     rotSpeed = frameTime * 3.0;
     if (Main.rotLeft) spinLeft();
     if (Main.rotRight) spinRight();
     if (Main.up) moveForward();
     if (Main.down) moveBackwards();
+    if (Main.left) strafe(false);
+    if (Main.right) strafe(true);
     g2d.dispose();
   }
 
@@ -230,9 +240,18 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void moveForward() {
-    System.out.printf("dirX: %.2f, dirY: %.2f%n", dirX, dirY);
     if (worldMap[(int) (posX + dirX * moveSpeed)][(int) posY] == 0) posX += dirX * moveSpeed;
     if (worldMap[(int) posX][(int) (posY + dirY * moveSpeed)] == 0) posY += dirY * moveSpeed;
+  }
+  
+  private void strafe(boolean direction) {
+    // true = right
+    int d = direction ? -1 : 1;
+    double oldDirX = dirX;
+    double newDirX = dirX * Math.cos(d * Math.PI / 2) - dirY * Math.sin(d * Math.PI / 2);
+    double newDirY = oldDirX * Math.sin(d * Math.PI / 2) + dirY * Math.cos(d * Math.PI / 2);
+    posX += newDirX * moveSpeed;
+    posY += newDirY * moveSpeed;
   }
 
   private void spinRight() {
