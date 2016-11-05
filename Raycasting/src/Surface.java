@@ -250,8 +250,8 @@ public class Surface extends JPanel implements ActionListener {
     double oldDirX = dirX;
     double newDirX = dirX * Math.cos(d * Math.PI / 2) - dirY * Math.sin(d * Math.PI / 2);
     double newDirY = oldDirX * Math.sin(d * Math.PI / 2) + dirY * Math.cos(d * Math.PI / 2);
-    posX += newDirX * moveSpeed;
-    posY += newDirY * moveSpeed;
+    if (worldMap[(int) (posX + newDirX * moveSpeed)][(int) posY] == 0) posX += newDirX * moveSpeed;
+    if (worldMap[(int) posX][(int) (posY + newDirY * moveSpeed)] == 0) posY += newDirY * moveSpeed;
   }
 
   private void spinRight() {
