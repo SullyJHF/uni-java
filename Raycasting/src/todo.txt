@@ -1,0 +1,5 @@
+Todo
+- Texture mapping
+- Map class
+  - get array of pixels from image
+- sideways collision
