@@ -10,9 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Surface extends JPanel implements ActionListener {
-  Graphics g;
-  Timer t;
-  ColourHandler ch = new ColourHandler();
+  private boolean debugText = false;
+  private Graphics g;
+  private Timer t;
+  private ColourHandler ch = new ColourHandler();
   private double goalFps = 60;
   private int frameTimeMs = (int) (1000 / goalFps);
   private final int INITIAL_DELAY = 0;
@@ -168,23 +169,6 @@ public class Surface extends JPanel implements ActionListener {
     time = System.nanoTime();
     double timeDiff = time - oldTime;
     double frameTime = timeDiff / 1000000000.0;
-    g2d.setColor(Color.BLACK);
-    g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, 20));
-    oldRunningTime = runningTime;
-    runningTime += timeDiff / 1000000000.0;
-    if (Math.floor(runningTime) != Math.floor(oldRunningTime)) {
-      updateFps((int) (1.0 / frameTime));
-    }
-    g2d.drawString(this.fps, 0, 18);
-    g2d.drawString("dirX: " + String.valueOf(dirX), 0, 50);
-    g2d.drawString("dirY: " + String.valueOf(dirY), 0, 75);
-    double newDirX = Math.toDegrees(Math.acos(dirX));
-    double newDirY = Math.toDegrees(Math.acos(dirY));
-    g2d.drawString("newDirX: " + String.valueOf(newDirX), 0, 100);
-    g2d.drawString("newDirY: " + String.valueOf(newDirY), 0, 125);
-
-    g2d.drawString("posX: " + String.valueOf(posX), 260, 50);
-    g2d.drawString("posY: " + String.valueOf(posY), 260, 75);
 
     moveSpeed = frameTime * 5.0;
     rotSpeed = frameTime * 3.0;
@@ -194,6 +178,27 @@ public class Surface extends JPanel implements ActionListener {
     if (Main.down) moveBackwards();
     if (Main.left) strafe(false);
     if (Main.right) strafe(true);
+
+    if(debugText) {
+      g2d.setColor(Color.BLACK);
+      g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, 20));
+      oldRunningTime = runningTime;
+      runningTime += timeDiff / 1000000000.0;
+      if (Math.floor(runningTime) != Math.floor(oldRunningTime)) {
+        updateFps((int) (1.0 / frameTime));
+      }
+      g2d.drawString(this.fps, 0, 18);
+      g2d.drawString("dirX: " + String.valueOf(Math.round(dirX * 100.0) / 100.0), 0, 50);
+      g2d.drawString("dirY: " + String.valueOf(Math.round(dirY * 100.0) / 100.0), 0, 75);
+      double newDirX = Math.toDegrees(Math.acos(Math.round(dirX * 100.0) / 100.0));
+      double newDirY = Math.toDegrees(Math.acos(Math.round(dirY * 100.0) / 100.0));
+      g2d.drawString("newDirX: " + String.valueOf(Math.round(newDirX * 100.0) / 100.0), 0, 100);
+      g2d.drawString("newDirY: " + String.valueOf(Math.round(newDirY * 100.0) / 100.0), 0, 125);
+
+      g2d.drawString("posX: " + String.valueOf(Math.round(posX * 100.0) / 100.0), 100, 50);
+      g2d.drawString("posY: " + String.valueOf(Math.round(posY * 100.0) / 100.0), 100, 75);
+    }
+
     g2d.dispose();
   }
 
