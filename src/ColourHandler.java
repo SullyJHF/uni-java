@@ -48,6 +48,19 @@ class ColourHandler {
     return new Color(cInts[mapTile]);
   }
 
+  public int getMapTileFromColourRGB(int rgb) {
+    if(rgb == -65281) return 0;
+    rgb = findClosestColor(rgb).getRGB();
+    for(int i = 0; i < cInts.length; i++) {
+      if(cInts[i] == rgb) return i + 1;
+    }
+    return 0;
+  }
+
+  public Color findclosestColor(Color c) {
+    return findClosestColor(c.getRGB());
+  }
+
   public Color findClosestColor(int rgb) {
     double smallestD = Double.MAX_VALUE;
     int index = -1;
