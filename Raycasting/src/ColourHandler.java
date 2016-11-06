@@ -27,12 +27,12 @@ class ColourHandler {
   public ColourHandler() {
   }
 
-  public int getColourByName(String name) {
+  public Color getColourByName(String name) {
     name = name.toUpperCase();
     for (int i = 0; i < cStrings.length; i++) {
-      if (cStrings[i].equals(name)) return cInts[i];
+      if (cStrings[i].equals(name)) return new Color(cInts[i]);
     }
-    return -1;
+    return null;
   }
 
   public String getColourByInt(int colour) {
