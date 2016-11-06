@@ -7,31 +7,46 @@ import javax.imageio.ImageIO;
 public class Map {
   private File mapFile;
   BufferedImage mapImg;
-  
+
+  private ColourHandler ch;;
+
   private int w, h;
+
+  private int[][] mapArray;
 
   public Map(String filepath) {
     this.mapFile = new File(filepath);
+    this.ch = new ColourHandler();
     loadImage();
     createArray();
   }
 
   private void loadImage() {
     try {
-      mapImg = ImageIO.read(mapFile);
+      this.mapImg = ImageIO.read(mapFile);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
-  
+
   private void createArray() {
-    this.w = mapImg.getWidth(null);
-    this.h = mapImg.getHeight(null);
-    System.out.printf("w: %d, h: %d", w, h);
+    this.w = this.mapImg.getWidth(null);
+    this.h = this.mapImg.getHeight(null);
+    this.mapArray = new int[w][h];
     for(int row = 0; row < this.w; row++) {
       for(int cell = 0; cell < this.h; cell++) {
-        mapImg.getRGB(row, cell);
+        int rgb = this.mapImg.getRGB(row, cell);
+        this.mapArray[row][cell] = this.ch.getMapTileFromColourRGB(rgb);
       }
+    }
+  }
+
+  public void printMap() {
+    for(int[] row : this.mapArray) {
+      for(int col : row) {
+        System.out.print(col + " ");
+      }
+      System.out.println();
     }
   }
 }
