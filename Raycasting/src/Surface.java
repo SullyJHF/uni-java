@@ -168,7 +168,7 @@ public class Surface extends JPanel implements ActionListener {
       if (drawEnd >= SCREEN_HEIGHT) drawEnd = SCREEN_HEIGHT - 1;
 
       Color c;
-      c = ch.getColourFromMap(worldMap[mapX][mapY]);
+      c = ch.getColourFromMapTile(worldMap[mapX][mapY]);
 
       if (side == 1) {
         c = c.darker();
