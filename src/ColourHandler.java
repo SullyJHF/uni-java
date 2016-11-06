@@ -65,19 +65,19 @@ class ColourHandler {
   }
 
   final Color BLACK = new Color(cInts[0]);
-  final Color DARK_BLUE = new Color(cInts[0]);
-  final Color DARK_PURPLE = new Color(cInts[0]);
-  final Color DARK_GREEN = new Color(cInts[0]);
-  final Color BROWN = new Color(cInts[0]);
-  final Color DARK_GRAY = new Color(cInts[0]);
-  final Color LIGHT_GRAY = new Color(cInts[0]);
-  final Color WHITE = new Color(cInts[0]);
-  final Color RED = new Color(cInts[0]);
-  final Color ORANGE = new Color(cInts[0]);
-  final Color YELLOW = new Color(cInts[0]);
-  final Color GREEN = new Color(cInts[0]);
-  final Color BLUE = new Color(cInts[0]);
-  final Color INDIGO = new Color(cInts[0]);
-  final Color PINK = new Color(cInts[0]);
-  final Color PEACH = new Color(cInts[0]);
+  final Color DARK_BLUE = new Color(cInts[1]);
+  final Color DARK_PURPLE = new Color(cInts[2]);
+  final Color DARK_GREEN = new Color(cInts[3]);
+  final Color BROWN = new Color(cInts[4]);
+  final Color DARK_GRAY = new Color(cInts[5]);
+  final Color LIGHT_GRAY = new Color(cInts[6]);
+  final Color WHITE = new Color(cInts[7]);
+  final Color RED = new Color(cInts[8]);
+  final Color ORANGE = new Color(cInts[9]);
+  final Color YELLOW = new Color(cInts[10]);
+  final Color GREEN = new Color(cInts[11]);
+  final Color BLUE = new Color(cInts[12]);
+  final Color INDIGO = new Color(cInts[13]);
+  final Color PINK = new Color(cInts[14]);
+  final Color PEACH = new Color(cInts[15]);
 }
