@@ -45,9 +45,13 @@ public class Surface extends JPanel implements ActionListener {
     initGameWorld();
   }
 
+  public void start() {
+    startTimer();
+  }
+
   private void initTimer() {
-    t = new Timer(frameTimeMs, this);
-    t.setInitialDelay(INITIAL_DELAY);
+    this.t = new Timer(frameTimeMs, this);
+    this.t.setInitialDelay(INITIAL_DELAY);
   }
 
   private void setSurfaceSize() {
@@ -55,21 +59,30 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void initGameWorld() {
-    m = new Map("res/map0.png");
-    worldMap = m.getMapArray();
-    mapWidth = m.getWidth();
-    mapHeight = m.getHeight();
+    this.m = new Map("res/map1.png", "Corridor of Doom");
+    this.worldMap = m.getMapArray();
+    this.mapWidth = m.getWidth();
+    this.mapHeight = m.getHeight();
 
-    posX = 12;
-    posY = 12;
-    dirX = -1;
-    dirY = 0;
-    planeX = 0;
-    planeY = 0.66;
+    setStartPosition();
+  }
 
-    time = System.nanoTime();
-    oldTime = time;
-    t.start();
+  private void startTimer() {
+    this.time = System.nanoTime();
+    this.oldTime = time;
+    this.t.start();
+  }
+
+  private void setStartPosition() {
+    this.posX = 7;
+    this.posY = 12;
+
+    this.dirX = 0;
+    this.dirY = 1;
+
+    this.planeY = 0;
+    this.planeX = 0.66;
+
   }
 
   private void tick(Graphics g) {
@@ -242,6 +255,10 @@ public class Surface extends JPanel implements ActionListener {
   private void moveBackwards() {
     if (worldMap[(int) (posX - dirX * moveSpeed)][(int) posY] == 0) posX -= dirX * moveSpeed;
     if (worldMap[(int) posX][(int) (posY - dirY * moveSpeed)] == 0) posY -= dirY * moveSpeed;
+  }
+
+  public String getTitle() {
+    return m.getTitle();
   }
 
   @Override
