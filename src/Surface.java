@@ -89,9 +89,9 @@ public class Surface extends JPanel implements ActionListener {
     Graphics2D g2d = (Graphics2D) g.create();
 
     // draw sky and ground
-    g2d.setColor(Color.CYAN);
+    g2d.setColor(ch.BLUE);
     g2d.fillRect(0, 0, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
-    g2d.setColor(Color.BLACK);
+    g2d.setColor(ch.BLACK);
     g2d.fillRect(0, (SCREEN_HEIGHT / 2) * SCALE, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
 
     // Loop through each column on the screen
