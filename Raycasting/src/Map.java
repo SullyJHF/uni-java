@@ -41,6 +41,18 @@ public class Map {
     }
   }
 
+  public int[][] getMapArray() {
+    return this.mapArray;
+  }
+
+  public int getWidth() {
+    return mapArray.length;
+  }
+
+  public int getHeight() {
+    return mapArray[0].length;
+  }
+
   public void printMap() {
     for(int[] row : this.mapArray) {
       for(int col : row) {
