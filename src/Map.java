@@ -14,8 +14,11 @@ public class Map {
 
   private int[][] mapArray;
 
-  public Map(String filepath) {
+  private String mapTitle;
+
+  public Map(String filepath, String mapTitle) {
     this.mapFile = new File(filepath);
+    this.mapTitle = mapTitle;
     this.ch = new ColourHandler();
     loadImage();
     createArray();
@@ -51,6 +54,10 @@ public class Map {
 
   public int getHeight() {
     return h;
+  }
+
+  public String getTitle() {
+    return this.mapTitle;
   }
 
   public void printMap() {

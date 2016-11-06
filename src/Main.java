@@ -17,14 +17,16 @@ public class Main extends JFrame implements KeyListener {
   }
 
   private void initUI() {
-    add(new Surface());
+    Surface s = new Surface();
+    add(s);
 
     pack();
 
-    setTitle("Raycasting");
+    setTitle(s.getTitle());
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     addKeyListener(this);
+    s.start();
   }
 
   public static void main(String[] args) {
