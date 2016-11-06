@@ -42,7 +42,7 @@ class ColourHandler {
     return null;
   }
 
-  public Color getColourFromMap(int mapTile) {
+  public Color getColourFromMapTile(int mapTile) {
     if (mapTile == 0) return null;
     mapTile--;
     return new Color(cInts[mapTile]);
