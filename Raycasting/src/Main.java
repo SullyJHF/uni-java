@@ -44,7 +44,7 @@ public class Main extends JFrame implements KeyListener {
      * a = 65
      * s = 83
      * d = 68
-     * 
+     *
      * up = 38
      * left = 37
      * down = 39

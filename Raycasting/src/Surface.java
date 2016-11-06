@@ -12,43 +12,24 @@ import javax.swing.Timer;
 public class Surface extends JPanel implements ActionListener {
   Graphics g;
   Timer t;
+  ColourHandler ch = new ColourHandler();
   private double goalFps = 60;
   private int frameTimeMs = (int) (1000 / goalFps);
   private final int INITIAL_DELAY = 0;
-  private final int SCALE = 3;
-  private final int SCREEN_HEIGHT = 200;
-  private final int SCREEN_WIDTH = 320;
   private double runningTime = 0;
   private double oldRunningTime = 0;
   private String fps = "";
-  private int[][] worldMap = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 4, 0, 0, 0, 0, 5, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 4, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-      { 1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-      { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-  private final int MAP_WIDTH = worldMap.length;
-  private final int MAP_HEIGHT = worldMap[0].length;
 
-  // Game loop variables
+  private final int SCALE = 3;
+  private final int SCREEN_HEIGHT = 200;
+  private final int SCREEN_WIDTH = 320;
+
+  private Map m;
+  private int[][] worldMap;
+  private int mapWidth;
+  private int mapHeight;
+
+  // Game world variables
   double posX, posY;
   double dirX, dirY;
   double planeX, planeY;
@@ -60,7 +41,7 @@ public class Surface extends JPanel implements ActionListener {
   public Surface() {
     initTimer();
     setSurfaceSize();
-    initGameLoop();
+    initGameWorld();
   }
 
   private void initTimer() {
@@ -72,7 +53,12 @@ public class Surface extends JPanel implements ActionListener {
     setPreferredSize(new Dimension(SCREEN_WIDTH * SCALE, SCREEN_HEIGHT * SCALE));
   }
 
-  private void initGameLoop() {
+  private void initGameWorld() {
+    m = new Map("res/map0.png");
+    worldMap = m.getMapArray();
+    mapWidth = m.getWidth();
+    mapHeight = m.getHeight();
+
     posX = 12;
     posY = 12;
     dirX = -1;
@@ -142,8 +128,8 @@ public class Surface extends JPanel implements ActionListener {
           mapY += stepY;
           side = 1;
         }
-        if (mapX >= MAP_WIDTH) hit = -1;
-        if (mapY >= MAP_HEIGHT) hit = -1;
+        if (mapX >= mapWidth) hit = -1;
+        if (mapY >= mapHeight) hit = -1;
         if (hit == -1) {
           break;
         }
@@ -167,22 +153,7 @@ public class Surface extends JPanel implements ActionListener {
       if (drawEnd >= SCREEN_HEIGHT) drawEnd = SCREEN_HEIGHT - 1;
 
       Color c;
-      switch (worldMap[mapX][mapY]) {
-      case (1):
-        c = Color.RED;
-        break;
-      case (2):
-        c = Color.GREEN;
-        break;
-      case (3):
-        c = Color.BLUE;
-        break;
-      case (4):
-        c = Color.WHITE;
-        break;
-      default:
-        c = Color.YELLOW;
-      }
+      c = ch.getColourFromMapTile(worldMap[mapX][mapY]);
 
       if (side == 1) {
         c = c.darker();
@@ -243,7 +214,7 @@ public class Surface extends JPanel implements ActionListener {
     if (worldMap[(int) (posX + dirX * moveSpeed)][(int) posY] == 0) posX += dirX * moveSpeed;
     if (worldMap[(int) posX][(int) (posY + dirY * moveSpeed)] == 0) posY += dirY * moveSpeed;
   }
-  
+
   private void strafe(boolean direction) {
     // true = right
     int d = direction ? -1 : 1;
