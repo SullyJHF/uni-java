@@ -46,11 +46,11 @@ public class Map {
   }
 
   public int getWidth() {
-    return mapArray.length;
+    return w;
   }
 
   public int getHeight() {
-    return mapArray[0].length;
+    return h;
   }
 
   public void printMap() {
