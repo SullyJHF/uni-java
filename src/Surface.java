@@ -31,7 +31,7 @@ public class Surface extends JPanel implements ActionListener {
   private int mapHeight;
 
   // Game world variables
-  double posX, posY;
+  double posX, posY; // posX is actually number of rows down you are and posY is number of columns across
   double dirX, dirY;
   double planeX, planeY;
   double moveSpeed, rotSpeed;
@@ -59,7 +59,7 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void initGameWorld() {
-    this.m = new Map("res/map0.png", "Test map");
+    this.m = new Map("res/00Dungeon_of_the_Damned.png", "Test map");
     this.worldMap = m.getMapArray();
     this.mapWidth = m.getWidth();
     this.mapHeight = m.getHeight();
@@ -74,14 +74,14 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void setStartPosition() {
-    this.posX = 7;
-    this.posY = 12;
+    this.posX = 62;
+    this.posY = 1;
 
-    this.dirX = 0;
-    this.dirY = 1;
+    this.dirX = -1;
+    this.dirY = 0;
 
-    this.planeY = 0;
-    this.planeX = 0.66;
+    this.planeY = 0.66;
+    this.planeX = 0;
 
   }
 
