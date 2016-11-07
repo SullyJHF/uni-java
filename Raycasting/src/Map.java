@@ -35,11 +35,11 @@ public class Map {
   private void createArray() {
     this.w = this.mapImg.getWidth(null);
     this.h = this.mapImg.getHeight(null);
-    this.mapArray = new int[w][h];
-    for(int row = 0; row < this.w; row++) {
-      for(int cell = 0; cell < this.h; cell++) {
-        int rgb = this.mapImg.getRGB(row, cell);
-        this.mapArray[row][cell] = this.ch.getMapTileFromColourRGB(rgb);
+    this.mapArray = new int[this.h][this.w];
+    for(int y = 0; y < this.h; y++) {
+      for(int x = 0; x < this.w; x++) {
+        int rgb = this.mapImg.getRGB(x, y);
+        this.mapArray[y][x] = this.ch.getMapTileFromColourRGB(rgb);
       }
     }
   }
