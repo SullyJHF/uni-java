@@ -1,5 +1,31 @@
 Todo
+----
+Engine
+------
 - Texture mapping
-- Map class
-  - get array of pixels from image
-- sideways collision
+
+Map
+---
+~ Map class
+  ~ get array of pixels from image-
+- Make title of map file be the title of the level, without first numbers
+  - i.e. 00Corridor of Doom, 01Snail Lagoon
+  - Maybe have these in a folder and have that be the chapter name or something
+    - same format xxname
+
+
+Player
+------
+~ sideways collision
+- proper collision
+  - make the player have a radius
+- fix the forward + sideways collision
+- Acceleration
+  - don't instantly speed up to max speed
+- Add bob
+
+Gameplay
+--------
+- Make a goal
+- Add weapons
+- Enemies
