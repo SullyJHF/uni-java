@@ -12,6 +12,9 @@ Map
   - i.e. 00Corridor of Doom, 01Snail Lagoon
   - Maybe have these in a folder and have that be the chapter name or something
     - same format xxname
+- Allow sky/floor colours to be chosen from the map file somehow?
+- Allow setting of the initial player position from the map file too
+~ Don't flip the map file in the y axis
 
 
 Player
@@ -23,6 +26,7 @@ Player
 - Acceleration
   - don't instantly speed up to max speed
 - Add bob
+- set start position based on angle
 
 Gameplay
 --------
