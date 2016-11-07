@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Map {
   private File mapFile;
-  BufferedImage mapImg;
+  private BufferedImage mapImg;
 
   private ColourHandler ch;;
 
@@ -49,11 +49,11 @@ public class Map {
   }
 
   public int getWidth() {
-    return w;
+    return this.w;
   }
 
   public int getHeight() {
-    return h;
+    return this.h;
   }
 
   public String getTitle() {
