@@ -59,7 +59,7 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void initGameWorld() {
-    this.m = new Map("res/map1.png", "Corridor of Doom");
+    this.m = new Map("res/map0.png", "Test map");
     this.worldMap = m.getMapArray();
     this.mapWidth = m.getWidth();
     this.mapHeight = m.getHeight();
@@ -89,9 +89,9 @@ public class Surface extends JPanel implements ActionListener {
     Graphics2D g2d = (Graphics2D) g.create();
 
     // draw sky and ground
-    g2d.setColor(ch.BLUE);
+    g2d.setColor(ch.BLUE.brighter());
     g2d.fillRect(0, 0, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
-    g2d.setColor(ch.BLACK);
+    g2d.setColor(ch.BLACK.brighter());
     g2d.fillRect(0, (SCREEN_HEIGHT / 2) * SCALE, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
 
     // Loop through each column on the screen
