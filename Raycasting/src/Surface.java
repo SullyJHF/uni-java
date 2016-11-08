@@ -5,12 +5,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Surface extends JPanel implements ActionListener {
-  private boolean debugText = false;
+  private boolean debugText = true;
   private Graphics g;
   private Timer t;
   private ColourHandler ch = new ColourHandler();
@@ -24,6 +25,8 @@ public class Surface extends JPanel implements ActionListener {
   private final int SCALE = 3;
   private final int SCREEN_HEIGHT = 200;
   private final int SCREEN_WIDTH = 320;
+
+  private final int TEX_SIZE = 16;
 
   private Map m;
   private int[][] worldMap;
@@ -74,8 +77,8 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void setStartPosition() {
-    this.posX = 62;
-    this.posY = 1;
+    this.posX = 61;
+    this.posY = 2;
 
     this.dirX = -1;
     this.dirY = 0;
@@ -87,12 +90,16 @@ public class Surface extends JPanel implements ActionListener {
 
   private void tick(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
+    SpriteSheet ss = new SpriteSheet("res/16x16_textures.png");
+
 
     // draw sky and ground
     g2d.setColor(ch.BLUE.brighter());
     g2d.fillRect(0, 0, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
     g2d.setColor(ch.BLACK.brighter());
     g2d.fillRect(0, (SCREEN_HEIGHT / 2) * SCALE, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
+
+    BufferedImage tex = ss.getSprite(0);
 
     // Loop through each column on the screen
     for (int x = 0; x < SCREEN_WIDTH; x++) {
@@ -162,20 +169,34 @@ public class Surface extends JPanel implements ActionListener {
 
       int lineHeight = (int) (SCREEN_HEIGHT / perpWallDist);
       int drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
-      if (drawStart < 0) drawStart = 0;
+//      if (drawStart < 0) drawStart = 0;
       int drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
-      if (drawEnd >= SCREEN_HEIGHT) drawEnd = SCREEN_HEIGHT - 1;
+//      if (drawEnd >= SCREEN_HEIGHT) drawEnd = SCREEN_HEIGHT - 1;
 
-      Color c;
+      double wallX;
+      if(side == 0) {
+        wallX = rayPosY + perpWallDist * rayDirY;
+      } else {
+        wallX = rayPosX + perpWallDist * rayDirX;
+      }
+
+      wallX -= Math.floor(wallX);
+
+      int texX = (int) (wallX * TEX_SIZE);
+      if(side == 0 && rayDirX > 0) texX = TEX_SIZE - texX - 1;
+      if(side == 1 && rayDirY < 0) texX = TEX_SIZE - texX - 1;
+
+     /* Color c;
       c = ch.getColourFromMapTile(worldMap[mapX][mapY]);
 
       if (side == 1) {
         c = c.darker();
-      }
+      }*/
 
       // draw the line
-      g2d.setColor(c);
-      g2d.fillRect(x * SCALE, drawStart * SCALE, SCALE, (drawEnd - drawStart) * SCALE);
+//      g2d.setColor(c);
+//      g2d.fillRect(x * SCALE, drawStart * SCALE, SCALE, (drawEnd - drawStart) * SCALE);
+      g2d.drawImage(tex.getSubimage(texX, 0, 1, TEX_SIZE), x * SCALE, drawStart * SCALE, SCALE, (drawEnd - drawStart) * SCALE, null);
     }
 
     oldTime = time;
@@ -196,9 +217,9 @@ public class Surface extends JPanel implements ActionListener {
       g2d.setColor(Color.BLACK);
       g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, 20));
       oldRunningTime = runningTime;
-      runningTime += timeDiff / 1000000000.0;
+      runningTime += (timeDiff / 1000000000.0) * 10.0;
       if (Math.floor(runningTime) != Math.floor(oldRunningTime)) {
-        updateFps((int) (1.0 / frameTime));
+        updateFps(1.0 / frameTime);
       }
       g2d.drawString(this.fps, 0, 18);
       g2d.drawString("dirX: " + String.valueOf(Math.round(dirX * 100.0) / 100.0), 0, 50);
@@ -215,8 +236,8 @@ public class Surface extends JPanel implements ActionListener {
     g2d.dispose();
   }
 
-  private void updateFps(int fps) {
-    this.fps = String.valueOf(fps) + " FPS";
+  private void updateFps(double fps) {
+    this.fps = String.valueOf(Math.round(fps * 100.0) / 100.0) + " FPS";
   }
 
   private void spinLeft() {
