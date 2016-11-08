@@ -8,7 +8,7 @@ public class Map {
   private File mapFile;
   private BufferedImage mapImg;
 
-  private ColourHandler ch;;
+  private ColourHandler ch;
 
   private int w, h;
 
@@ -26,7 +26,7 @@ public class Map {
 
   private void loadImage() {
     try {
-      this.mapImg = ImageIO.read(mapFile);
+      this.mapImg = ImageIO.read(this.mapFile);
     } catch (IOException e) {
       e.printStackTrace();
     }
