@@ -16,6 +16,12 @@ Map
 - Allow setting of the initial player position from the map file too
 ~ Don't flip the map file in the y axis
 
+Spritesheet
+-----------
+- Spritesheet class
+- Take file as spritesheet
+- getSprite
+  - give it x to return a texture at index x, left -> right top -> bottom
 
 Player
 ------
