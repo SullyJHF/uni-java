@@ -8,6 +8,7 @@ class ColourHandler {
       { 0, 228, 54 }, { 41, 173, 255 }, { 131, 118, 156 }, { 255, 119, 168 }, { 255, 204, 170 } };
   private String[] cStrings = { "BLACK", "DARK_BLUE", "DARK_PURPLE", "DARK_GREEN", "BROWN", "DARK_GRAY", "LIGHT_GRAY",
       "WHITE", "RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "INDIGO", "PINK", "PEACH" };
+  private final int INVISIBLE_INT = -65281; // PINK
 
   public ColourHandler() {
   }
@@ -34,7 +35,7 @@ class ColourHandler {
   }
 
   public int getMapTileFromColourRGB(int rgb) {
-    if (rgb == -65281) return 0;
+    if (rgb == INVISIBLE_INT) return 0;
     rgb = findClosestColor(rgb).getRGB();
     for (int i = 0; i < cInts.length; i++) {
       if (cInts[i] == rgb) return i + 1;
