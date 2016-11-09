@@ -155,8 +155,8 @@ public class Surface extends JPanel implements ActionListener {
         }
         if (mapX >= mapWidth) hit = -1;
         if (mapY >= mapHeight) hit = -1;
-        if (mapX <= 0) hit = -1;
-        if (mapY <= 0) hit = -1;
+        if (mapX < 0) hit = -1;
+        if (mapY < 0) hit = -1;
         if (hit == -1) {
           break;
         }
