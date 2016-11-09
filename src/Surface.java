@@ -28,6 +28,7 @@ public class Surface extends JPanel implements ActionListener {
 
   private SpriteSheet ss;
   private final int TEX_SIZE = 16;
+  private BufferedImage tex;
 
   private Map m;
   private int[][] mapArray;
@@ -66,7 +67,7 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void initGameWorld() {
-    this.m = new Map("res/blank.png", "Test map");
+    this.m = new Map("res/00Dungeon_of_the_Damned.png", "Test map");
     this.ss = new SpriteSheet("res/16x16_textures.png");
     this.mapArray = m.getMapArray();
     this.mapWidth = m.getWidth();
@@ -83,8 +84,8 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void setStartPosition() {
-    this.posX = 16;
-    this.posY = 16;
+    this.posX = 62;
+    this.posY = 2;
 
     this.dirX = -1;
     this.dirY = 0;
@@ -102,8 +103,6 @@ public class Surface extends JPanel implements ActionListener {
     g2d.fillRect(0, 0, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
     g2d.setColor(ch.BLACK.brighter());
     g2d.fillRect(0, (SCREEN_HEIGHT / 2) * SCALE, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
-
-    BufferedImage tex = this.ss.getSprite(0);
 
     // Loop through each column on the screen
     for (int x = 0; x < SCREEN_WIDTH; x++) {
@@ -202,6 +201,7 @@ public class Surface extends JPanel implements ActionListener {
       // draw the line
       //      g2d.setColor(c);
       //      g2d.fillRect(x * SCALE, drawStart * SCALE, SCALE, (drawEnd - drawStart) * SCALE);
+      this.tex = ss.getSprite(mapArray[mapX][mapY] - 1);
       g2d.drawImage(tex.getSubimage(texX, 0, 1, TEX_SIZE), x * SCALE, drawStart * SCALE, SCALE,
           (drawEnd - drawStart) * SCALE, null);
     }
