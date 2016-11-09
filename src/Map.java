@@ -76,12 +76,11 @@ public class Map {
     if (y < 0) y = 0;
     if (x + width > this.w) width = Math.ceil(this.w - x);
     if (y + height > this.h) height = Math.ceil(this.h - y);
-    System.out.printf("x: %f y: %f width: %f height: %f%n", x, y, width, height);
+    //    System.out.printf("x: %f y: %f width: %f height: %f%n", x, y, width, height);
     BufferedImage newImg = this.getAlphaMapImage(replace).getSubimage((int) x, (int) y, (int) width, (int) height);
-    // find out where player is on sub map
     int playerX = (int) (posY - x);
     int playerY = (int) (posX - y);
-    System.out.printf("playerX: %d playerY: %d%n", playerX, playerY);
+    //    System.out.printf("playerX: %d playerY: %d%n", playerX, playerY);
     newImg.setRGB(playerX, playerY, Color.WHITE.getRGB());
     worldMap.setData(newImg.getRaster());
     return worldMap;
