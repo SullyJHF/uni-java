@@ -26,6 +26,7 @@ public class Surface extends JPanel implements ActionListener {
   private final int SCREEN_HEIGHT = 200;
   private final int SCREEN_WIDTH = 320;
 
+  private SpriteSheet ss;
   private final int TEX_SIZE = 16;
 
   private Map m;
@@ -34,6 +35,7 @@ public class Surface extends JPanel implements ActionListener {
   private int mapHeight;
 
   private final int WORLD_MAP_SIZE = 16 / SCALE;
+  private BufferedImage mapBG;
 
   // Game world variables
   double posX, posY; // posX is actually number of rows down you are and posY is number of columns across
@@ -65,9 +67,11 @@ public class Surface extends JPanel implements ActionListener {
 
   private void initGameWorld() {
     this.m = new Map("res/00Dungeon_of_the_Damned.png", "Test map");
+    this.ss = new SpriteSheet("res/16x16_textures.png");
     this.mapArray = m.getMapArray();
     this.mapWidth = m.getWidth();
     this.mapHeight = m.getHeight();
+    this.mapBG = ss.getSprite(3);
 
     setStartPosition();
   }
@@ -92,7 +96,6 @@ public class Surface extends JPanel implements ActionListener {
 
   private void tick(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
-    SpriteSheet ss = new SpriteSheet("res/16x16_textures.png");
 
     // draw sky and ground
     g2d.setColor(ch.BLUE.brighter());
@@ -100,7 +103,7 @@ public class Surface extends JPanel implements ActionListener {
     g2d.setColor(ch.BLACK.brighter());
     g2d.fillRect(0, (SCREEN_HEIGHT / 2) * SCALE, SCREEN_WIDTH * SCALE, (SCREEN_HEIGHT / 2) * SCALE);
 
-    BufferedImage tex = ss.getSprite(0);
+    BufferedImage tex = this.ss.getSprite(0);
 
     // Loop through each column on the screen
     for (int x = 0; x < SCREEN_WIDTH; x++) {
@@ -237,7 +240,9 @@ public class Surface extends JPanel implements ActionListener {
 
     BufferedImage mapImg = m.getSubAlphaImage(new Color(255, 0, 255), this.posX, this.posY, 10);
 
-    g2d.drawImage(mapImg, 0, (this.SCREEN_HEIGHT * SCALE) - (mapImg.getHeight() * WORLD_MAP_SIZE * SCALE),
+    g2d.drawImage(mapBG, 0, (this.SCREEN_HEIGHT * SCALE) - (mapImg.getHeight() * (WORLD_MAP_SIZE + 1) * SCALE),
+        mapImg.getWidth() * SCALE * (WORLD_MAP_SIZE + 1), mapImg.getHeight() * SCALE * (WORLD_MAP_SIZE + 1), null);
+    g2d.drawImage(mapImg, WORLD_MAP_SIZE * SCALE, (this.SCREEN_HEIGHT * SCALE) - (mapImg.getHeight() * WORLD_MAP_SIZE * SCALE) - WORLD_MAP_SIZE * SCALE,
         mapImg.getWidth() * SCALE * WORLD_MAP_SIZE, mapImg.getHeight() * SCALE * WORLD_MAP_SIZE, null);
 
     g2d.dispose();
