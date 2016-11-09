@@ -29,9 +29,11 @@ public class Surface extends JPanel implements ActionListener {
   private final int TEX_SIZE = 16;
 
   private Map m;
-  private int[][] worldMap;
+  private int[][] mapArray;
   private int mapWidth;
   private int mapHeight;
+
+  private final int WORLD_MAP_SIZE = 16 / SCALE;
 
   // Game world variables
   double posX, posY; // posX is actually number of rows down you are and posY is number of columns across
@@ -63,7 +65,7 @@ public class Surface extends JPanel implements ActionListener {
 
   private void initGameWorld() {
     this.m = new Map("res/00Dungeon_of_the_Damned.png", "Test map");
-    this.worldMap = m.getMapArray();
+    this.mapArray = m.getMapArray();
     this.mapWidth = m.getWidth();
     this.mapHeight = m.getHeight();
 
@@ -91,7 +93,6 @@ public class Surface extends JPanel implements ActionListener {
   private void tick(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
     SpriteSheet ss = new SpriteSheet("res/16x16_textures.png");
-
 
     // draw sky and ground
     g2d.setColor(ch.BLUE.brighter());
@@ -154,7 +155,7 @@ public class Surface extends JPanel implements ActionListener {
         if (hit == -1) {
           break;
         }
-        if (hit != -1 && worldMap[mapX][mapY] > 0) hit = 1;
+        if (hit != -1 && mapArray[mapX][mapY] > 0) hit = 1;
       }
 
       if (hit == -1) {
@@ -169,12 +170,12 @@ public class Surface extends JPanel implements ActionListener {
 
       int lineHeight = (int) (SCREEN_HEIGHT / perpWallDist);
       int drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
-//      if (drawStart < 0) drawStart = 0;
+      //      if (drawStart < 0) drawStart = 0;
       int drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
-//      if (drawEnd >= SCREEN_HEIGHT) drawEnd = SCREEN_HEIGHT - 1;
+      //      if (drawEnd >= SCREEN_HEIGHT) drawEnd = SCREEN_HEIGHT - 1;
 
       double wallX;
-      if(side == 0) {
+      if (side == 0) {
         wallX = rayPosY + perpWallDist * rayDirY;
       } else {
         wallX = rayPosX + perpWallDist * rayDirX;
@@ -183,20 +184,21 @@ public class Surface extends JPanel implements ActionListener {
       wallX -= Math.floor(wallX);
 
       int texX = (int) (wallX * TEX_SIZE);
-      if(side == 0 && rayDirX > 0) texX = TEX_SIZE - texX - 1;
-      if(side == 1 && rayDirY < 0) texX = TEX_SIZE - texX - 1;
+      if (side == 0 && rayDirX > 0) texX = TEX_SIZE - texX - 1;
+      if (side == 1 && rayDirY < 0) texX = TEX_SIZE - texX - 1;
 
-     /* Color c;
-      c = ch.getColourFromMapTile(worldMap[mapX][mapY]);
+      /* Color c;
+      c = ch.getColourFromMapTile(mapArray[mapX][mapY]);
 
       if (side == 1) {
         c = c.darker();
       }*/
 
       // draw the line
-//      g2d.setColor(c);
-//      g2d.fillRect(x * SCALE, drawStart * SCALE, SCALE, (drawEnd - drawStart) * SCALE);
-      g2d.drawImage(tex.getSubimage(texX, 0, 1, TEX_SIZE), x * SCALE, drawStart * SCALE, SCALE, (drawEnd - drawStart) * SCALE, null);
+      //      g2d.setColor(c);
+      //      g2d.fillRect(x * SCALE, drawStart * SCALE, SCALE, (drawEnd - drawStart) * SCALE);
+      g2d.drawImage(tex.getSubimage(texX, 0, 1, TEX_SIZE), x * SCALE, drawStart * SCALE, SCALE,
+          (drawEnd - drawStart) * SCALE, null);
     }
 
     oldTime = time;
@@ -213,7 +215,7 @@ public class Surface extends JPanel implements ActionListener {
     if (Main.left) strafe(false);
     if (Main.right) strafe(true);
 
-    if(debugText) {
+    if (debugText) {
       g2d.setColor(Color.BLACK);
       g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, 20));
       oldRunningTime = runningTime;
@@ -233,6 +235,11 @@ public class Surface extends JPanel implements ActionListener {
       g2d.drawString("posY: " + String.valueOf(Math.round(posY * 100.0) / 100.0), 100, 75);
     }
 
+    BufferedImage mapImg = m.getSubAlphaImage(new Color(255, 0, 255), this.posX, this.posY, 10);
+
+    g2d.drawImage(mapImg, 0, (this.SCREEN_HEIGHT * SCALE) - (mapImg.getHeight() * WORLD_MAP_SIZE * SCALE),
+        mapImg.getWidth() * SCALE * WORLD_MAP_SIZE, mapImg.getHeight() * SCALE * WORLD_MAP_SIZE, null);
+
     g2d.dispose();
   }
 
@@ -250,8 +257,8 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void moveForward() {
-    if (worldMap[(int) (posX + dirX * moveSpeed)][(int) posY] == 0) posX += dirX * moveSpeed;
-    if (worldMap[(int) posX][(int) (posY + dirY * moveSpeed)] == 0) posY += dirY * moveSpeed;
+    if (mapArray[(int) (posX + dirX * moveSpeed)][(int) posY] == 0) posX += dirX * moveSpeed;
+    if (mapArray[(int) posX][(int) (posY + dirY * moveSpeed)] == 0) posY += dirY * moveSpeed;
   }
 
   private void strafe(boolean direction) {
@@ -260,8 +267,8 @@ public class Surface extends JPanel implements ActionListener {
     double oldDirX = dirX;
     double newDirX = dirX * Math.cos(d * Math.PI / 2) - dirY * Math.sin(d * Math.PI / 2);
     double newDirY = oldDirX * Math.sin(d * Math.PI / 2) + dirY * Math.cos(d * Math.PI / 2);
-    if (worldMap[(int) (posX + newDirX * moveSpeed)][(int) posY] == 0) posX += newDirX * moveSpeed;
-    if (worldMap[(int) posX][(int) (posY + newDirY * moveSpeed)] == 0) posY += newDirY * moveSpeed;
+    if (mapArray[(int) (posX + newDirX * moveSpeed)][(int) posY] == 0) posX += newDirX * moveSpeed;
+    if (mapArray[(int) posX][(int) (posY + newDirY * moveSpeed)] == 0) posY += newDirY * moveSpeed;
   }
 
   private void spinRight() {
@@ -274,8 +281,8 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void moveBackwards() {
-    if (worldMap[(int) (posX - dirX * moveSpeed)][(int) posY] == 0) posX -= dirX * moveSpeed;
-    if (worldMap[(int) posX][(int) (posY - dirY * moveSpeed)] == 0) posY -= dirY * moveSpeed;
+    if (mapArray[(int) (posX - dirX * moveSpeed)][(int) posY] == 0) posX -= dirX * moveSpeed;
+    if (mapArray[(int) posX][(int) (posY - dirY * moveSpeed)] == 0) posY -= dirY * moveSpeed;
   }
 
   public String getTitle() {
