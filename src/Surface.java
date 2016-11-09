@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Surface extends JPanel implements ActionListener {
-  private boolean debugText = true;
+  private boolean debugText = false;
   private Graphics g;
   private Timer t;
   private ColourHandler ch = new ColourHandler();
@@ -66,7 +66,7 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void initGameWorld() {
-    this.m = new Map("res/00Dungeon_of_the_Damned.png", "Test map");
+    this.m = new Map("res/blank.png", "Test map");
     this.ss = new SpriteSheet("res/16x16_textures.png");
     this.mapArray = m.getMapArray();
     this.mapWidth = m.getWidth();
@@ -83,8 +83,8 @@ public class Surface extends JPanel implements ActionListener {
   }
 
   private void setStartPosition() {
-    this.posX = 61;
-    this.posY = 2;
+    this.posX = 16;
+    this.posY = 16;
 
     this.dirX = -1;
     this.dirY = 0;
@@ -244,7 +244,8 @@ public class Surface extends JPanel implements ActionListener {
 
     g2d.drawImage(mapBG, 0, (this.SCREEN_HEIGHT * SCALE) - (mapImg.getHeight() * (WORLD_MAP_SIZE + 1) * SCALE),
         mapImg.getWidth() * SCALE * (WORLD_MAP_SIZE + 1), mapImg.getHeight() * SCALE * (WORLD_MAP_SIZE + 1), null);
-    g2d.drawImage(mapImg, WORLD_MAP_SIZE * SCALE, (this.SCREEN_HEIGHT * SCALE) - (mapImg.getHeight() * WORLD_MAP_SIZE * SCALE) - WORLD_MAP_SIZE * SCALE,
+    g2d.drawImage(mapImg, WORLD_MAP_SIZE * SCALE,
+        (this.SCREEN_HEIGHT * SCALE) - (mapImg.getHeight() * WORLD_MAP_SIZE * SCALE) - WORLD_MAP_SIZE * SCALE,
         mapImg.getWidth() * SCALE * WORLD_MAP_SIZE, mapImg.getHeight() * SCALE * WORLD_MAP_SIZE, null);
 
     g2d.dispose();

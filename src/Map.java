@@ -81,6 +81,7 @@ public class Map {
     int playerX = (int) (posY - x);
     int playerY = (int) (posX - y);
     //    System.out.printf("playerX: %d playerY: %d%n", playerX, playerY);
+    // move it so the map is displayed in the bottom left when we are in the bottom left
     newImg.setRGB(playerX, playerY, Color.WHITE.getRGB());
     worldMap.setData(newImg.getRaster());
     return worldMap;
