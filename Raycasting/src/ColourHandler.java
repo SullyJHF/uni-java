@@ -79,4 +79,9 @@ class ColourHandler {
   final Color INDIGO = new Color(cInts[13]);
   final Color PINK = new Color(cInts[14]);
   final Color PEACH = new Color(cInts[15]);
+
+  public boolean isInvisible(int rgb) {
+    if (rgb == INVISIBLE_INT) return true;
+    return false;
+  }
 }
