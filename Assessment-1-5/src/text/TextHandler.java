@@ -21,8 +21,20 @@ public class TextHandler {
     }
   };
 
+  public TextHandler() {
+
+  }
+
   public TextHandler(String text) {
+    setText(text);
+  }
+
+  public void setText(String text) {
     this.text = text;
+    processText();
+  }
+
+  private void processText() {
     removePunc();
     fillWords();
     makeUnique();
