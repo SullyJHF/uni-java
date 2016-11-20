@@ -1,9 +1,16 @@
 package text;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
 public class Unique {
   FileHandler fileHandler;
   TextHandler textHandler;
   String currentFilename;
+
   public Unique(String filename) {
     this.currentFilename = filename;
     this.fileHandler = new FileHandler();
@@ -17,11 +24,28 @@ public class Unique {
   }
 
   public static void main(String[] args) {
-     for(String arg : args) {
-       Unique unique = new Unique(arg);
-       System.out.print("Processing " + arg);
-       unique.process();
-       System.out.println(" - Done!");
-     }
+    if (args.length > 0) {
+      for (String arg : args) {
+        Unique unique = new Unique(arg);
+        System.out.print("Processing " + arg);
+        unique.process();
+        System.out.println(" - Done!");
+      }
+    } else {
+      try (Stream<Path> paths = Files.walk(Paths.get("textfiles"))) {
+        paths.forEach(filePath -> {
+          if (Files.isRegularFile(filePath)) {
+            String filename = filePath.getFileName().toString();
+            Unique unique = new Unique(filename);
+            System.out.print("Processing " + filename);
+            unique.process();
+            System.out.println(" - Done!");
+          }
+        });
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
   }
 }
