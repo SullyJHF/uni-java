@@ -29,7 +29,6 @@ public class ExceptionsDemo {
   }
 
   public static void main(String[] args) {
-
     ExceptionsDemo ed = new ExceptionsDemo();
 
     try {
