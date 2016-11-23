@@ -14,29 +14,25 @@ public class ExceptionsDemo {
     phonenumber = pnum;
   }
 
-  public int extractPhoneNumber(String text) {
-    if (text == null || text.trim().length() < 1) throw new IllegalArgumentException("No empty text allowed.");
+  public void extractPhoneNumber(String text) throws EmptyStringException, InvalidPhoneNumberException {
+    if (text == null || text.trim().length() < 1) throw new EmptyStringException("No empty text allowed.");
 
     Pattern pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
     Matcher matcher = pattern.matcher(text);
 
-    if (matcher.find()) {
-      phonenumber = matcher.group(0);
-      return 0;
-    }
+    if (!matcher.find()) throw new InvalidPhoneNumberException("No (valid) phone number provided.");
 
-    throw new IllegalArgumentException("No (valid) phone number provided.");
+    phonenumber = matcher.group(0);
   }
 
   public static void main(String[] args) {
     ExceptionsDemo ed = new ExceptionsDemo();
 
     try {
-      int value = ed.extractPhoneNumber("This is my phone number 147-987-0000, ty");
+      ed.extractPhoneNumber("123-531-9000");
       System.out.println("Your phone number is " + ed.getPhoneNumber());
-    } catch (IllegalArgumentException e) {
-      System.out.println(e.getMessage());
-      e.printStackTrace();
+    } catch (EmptyStringException | InvalidPhoneNumberException e) {
+      System.out.println(e);
     }
   }
 }
