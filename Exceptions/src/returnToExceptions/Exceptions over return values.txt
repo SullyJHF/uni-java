@@ -1,0 +1,12 @@
+Advantages of using exceptions over return values
+- make the code more readable
+  for example new IllegalArgumentException("empty strings not allowed") makes more sense than the value -1;
+
+- Can't really ignore them
+  it will crash your program if left alone
+  whereas return codes can just be ignored
+
+- Easily propagated up from deeply nested functions
+  for example a function that calls another function which is called by another function
+  would need many parameters passed back again and again if using return values
+  however an exception automatically goes up the tree to be caught
