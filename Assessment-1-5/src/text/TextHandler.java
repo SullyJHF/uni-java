@@ -43,7 +43,7 @@ public class TextHandler {
 
   private void removePunc() {
     // regex to preserve all non punctuation characters;
-    this.text = this.text.replaceAll("[^a-zA-Z\\s-']", "").replaceAll("\\s+", " ");
+    this.text = this.text.replaceAll("[^a-zA-Z\\s-]", "").replaceAll("\\s+", " ");
   }
 
   private void fillWords() {

@@ -1,5 +1,10 @@
 package text;
 
+/*
+ * Assessment1 part 5
+ * S182016
+ */
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,7 +39,10 @@ public class Unique {
     } else {
       try (Stream<Path> paths = Files.walk(Paths.get("textfiles"))) {
         paths.forEach(filePath -> {
-          if (Files.isRegularFile(filePath)) {
+          String filePathStr = filePath.toString();
+          int lastDot = filePathStr.lastIndexOf('.');
+
+          if (lastDot > -1 && filePathStr.substring(lastDot + 1).equals("txt") && Files.isRegularFile(filePath)) {
             String filename = filePath.getFileName().toString();
             Unique unique = new Unique(filename);
             System.out.print("Processing " + filename);

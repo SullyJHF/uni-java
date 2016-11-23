@@ -34,7 +34,6 @@ public class FileHandler {
     try {
       // This loops through each line in the file and appends it to inputText
       Files.lines(this.path, Charset.forName("Cp1252")).forEach(line -> this.inputText.append(line + " "));
-//      Files.lines(this.path, StandardCharsets.UTF_8).forEach(line -> this.inputText.append(line));
     } catch (IOException e) {
       // Print the stack trace if an error occurs
       e.printStackTrace();
