@@ -34,7 +34,7 @@ public class ExceptionsDemo {
 
     try {
       int value = ed.extractPhoneNumber("This is my phone number 147-987-0000, ty");
-      System.out.println(value);
+      System.out.println("Your phone number is " + ed.getPhoneNumber());
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
