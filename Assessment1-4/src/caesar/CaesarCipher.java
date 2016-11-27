@@ -12,8 +12,8 @@ public class CaesarCipher {
     setOffset(offset);
   }
 
-  public String decryptString(String str) {
-    String tempStr = str.replaceAll(" ", "").toUpperCase();
+  public String decryptString(String input) {
+    String tempStr = input.replaceAll(" ", "").toUpperCase();
     String outputStr = new String();
     for (char c : tempStr.toCharArray()) {
       outputStr += decryptCharacter(c);
