@@ -2,6 +2,7 @@ package caesar;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -25,6 +26,10 @@ public class InputPane extends JPanel {
   private final int OFFSET_MAX = 26;
   private final int OFFSET_INIT = 0;
 
+  private final Font MONO_FONT = new Font("monospaced", Font.PLAIN, 12);
+
+  private CaesarCipher cc;
+
   // === Components === //
   private JLabel inputLabel;
   private JLabel outputLabel;
@@ -36,6 +41,8 @@ public class InputPane extends JPanel {
   private JButton decryptButton;
 
   private JSlider offsetSlider;
+  private JLabel offsetLabel;
+  private JLabel offsetNumLabel;
 
   public InputPane() {
     super(new GridBagLayout());
@@ -45,22 +52,19 @@ public class InputPane extends JPanel {
 
     this.gbc = new GridBagConstraints();
     this.gbc.fill = GridBagConstraints.BOTH;
-//    this.gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-    this.gbc.weightx = 1.0;
-    //    this.gbc.weighty = 1.0;
+    this.gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+    this.gbc.weightx = 0.5;
 
     // === LEFT COLUMN === //
-    //    setGridBagContstraints(0, 0, 0, 0, 1, 1, 0, 0);
     this.gbc.gridx = 0;
     this.gbc.gridy = 0;
     this.gbc.weighty = 0.0;
     this.gbc.insets = new Insets(5, 5, 10, GAP_BETWEEN);
     addComponent(inputLabel);
-    //    setGridBagContstraints(0, 0, 0, 1, 1, 1, 0, 100);
+
     this.gbc.gridx = 0;
     this.gbc.gridy = 1;
     this.gbc.weighty = 0.1;
-    //    this.gbc.ipady = TEXT_AREA_HEIGHT;
     this.gbc.insets = new Insets(5, 5, 5, GAP_BETWEEN);
     addComponent(inputTextScroll);
     this.gbc.weighty = 0.0;
@@ -70,10 +74,9 @@ public class InputPane extends JPanel {
     this.gbc.insets = new Insets(5, 5, 5, GAP_BETWEEN);
     addComponent(decryptButton);
     this.gbc.insets = DEFAULT_INSETS;
-    //    setGridBagContstraints(0, 0, 2, 0, 1, 1, 0, 0);
 
     // === RIGHT COLUMN === //
-//    this.gbc.weightx = 0.5;
+    this.gbc.gridwidth = 3;
     this.gbc.gridx = 1;
     this.gbc.gridy = 0;
     addComponent(outputLabel);
@@ -81,11 +84,21 @@ public class InputPane extends JPanel {
     this.gbc.gridx = 1;
     this.gbc.gridy = 1;
     this.gbc.weighty = 0.1;
-    //    this.gbc.ipady = TEXT_AREA_HEIGHT;
     addComponent(outputTextScroll);
     this.gbc.weighty = 0.0;
 
+    this.gbc.gridwidth = 1;
+    this.gbc.weightx = 0.0;
     this.gbc.gridx = 1;
+    this.gbc.gridy = 2;
+    addComponent(offsetLabel);
+
+    this.gbc.gridx = 2;
+    this.gbc.gridy = 2;
+    addComponent(offsetNumLabel);
+
+    this.gbc.weightx = 0.45;
+    this.gbc.gridx = 3;
     this.gbc.gridy = 2;
     addComponent(offsetSlider);
 
@@ -96,7 +109,10 @@ public class InputPane extends JPanel {
   }
 
   private void initialiseComponents() {
+    cc = new CaesarCipher();
+
     inputLabel = new JLabel("Input");
+    inputLabel.setFont(MONO_FONT);
 
     inputTextArea = new JTextArea();
     inputTextArea.setLineWrap(true);
@@ -105,6 +121,7 @@ public class InputPane extends JPanel {
     inputTextScroll = new JScrollPane(inputTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
     outputLabel = new JLabel("Output");
+    outputLabel.setFont(MONO_FONT);
 
     outputTextArea = new JTextArea();
     outputTextArea.setLineWrap(true);
@@ -114,25 +131,40 @@ public class InputPane extends JPanel {
     outputTextScroll = new JScrollPane(outputTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
     decryptButton = new JButton("Decrypt");
+    decryptButton.setFont(MONO_FONT);
+    decryptButton.addActionListener(e -> decryptInput());
 
     offsetSlider = new JSlider(JSlider.HORIZONTAL, OFFSET_MIN, OFFSET_MAX, OFFSET_INIT);
     offsetSlider.setMinorTickSpacing(1);
     offsetSlider.setPaintTicks(true);
     offsetSlider.setPaintLabels(true);
+    offsetSlider.addChangeListener(e -> updateOffsetLabel(offsetSlider.getValue()));
+
+    offsetLabel = new JLabel("Offset:");
+    offsetLabel.setFont(MONO_FONT);
+
+    offsetNumLabel = new JLabel();
+    offsetNumLabel.setFont(MONO_FONT);
+    updateOffsetLabel(offsetSlider.getValue());
+  }
+
+  private void updateOffsetLabel(int value) {
+    String labelStr = "";
+    if (value < 10) labelStr += value + " ";
+    else labelStr += value;
+    offsetNumLabel.setText(labelStr);
+     decryptInput();
+  }
+
+  private void decryptInput() {
+    int offset = offsetSlider.getValue();
+    String str = inputTextArea.getText();
+    cc.setOffset(offset);
+    String decryptedStr = cc.decryptString(str);
+    outputTextArea.setText(decryptedStr);
   }
 
   private void addComponent(Component c) {
     this.add(c, this.gbc);
-  }
-
-  private void setGridBagContstraints(double weightx, double weighty, int gridx, int gridy, int gridwidth, int gridheight, int ipadx, int ipady) {
-    this.gbc.weightx = weightx;
-    this.gbc.weighty = weighty;
-    this.gbc.gridx = gridx;
-    this.gbc.gridy = gridy;
-    this.gbc.gridwidth = gridwidth;
-    this.gbc.gridheight = gridheight;
-    this.gbc.ipadx = ipadx;
-    this.gbc.ipady = ipady;
   }
 }
