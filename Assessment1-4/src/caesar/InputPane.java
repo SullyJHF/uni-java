@@ -153,7 +153,7 @@ public class InputPane extends JPanel {
     if (value < 10) labelStr += value + " ";
     else labelStr += value;
     offsetNumLabel.setText(labelStr);
-     decryptInput();
+    decryptInput();
   }
 
   private void decryptInput() {

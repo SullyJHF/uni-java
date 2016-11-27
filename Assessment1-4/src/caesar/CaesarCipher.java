@@ -5,8 +5,7 @@ public class CaesarCipher {
   private final int A_VALUE = Character.valueOf('A');
   private int offset;
 
-  public CaesarCipher() {
-  }
+  public CaesarCipher() {}
 
   public CaesarCipher(int offset) {
     setOffset(offset);
