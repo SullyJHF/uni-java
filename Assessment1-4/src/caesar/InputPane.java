@@ -23,7 +23,7 @@ public class InputPane extends JPanel {
   private final int GAP_BETWEEN = 20;
 
   private final int OFFSET_MIN = 0;
-  private final int OFFSET_MAX = 26;
+  private final int OFFSET_MAX = 25;
   private final int OFFSET_INIT = 0;
 
   private final Font MONO_FONT = new Font("monospaced", Font.PLAIN, 12);
