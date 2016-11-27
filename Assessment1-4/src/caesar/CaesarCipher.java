@@ -21,7 +21,6 @@ public class CaesarCipher {
   }
 
   public char decryptCharacter(char c) {
-    c = Character.toUpperCase(c);
     int offsettedC = c - A_VALUE;
     int newC = offsettedC - this.offset;
     newC %= ALPHABET_LENGTH;
