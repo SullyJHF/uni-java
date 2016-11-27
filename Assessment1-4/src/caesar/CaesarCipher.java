@@ -5,6 +5,9 @@ public class CaesarCipher {
   private final int A_VALUE = Character.valueOf('A');
   private int offset;
 
+  public CaesarCipher() {
+  }
+
   public CaesarCipher(int offset) {
     setOffset(offset);
   }
@@ -12,7 +15,7 @@ public class CaesarCipher {
   public String decryptString(String str) {
     String tempStr = str.replaceAll(" ", "").toUpperCase();
     String outputStr = new String();
-    for(char c : tempStr.toCharArray()) {
+    for (char c : tempStr.toCharArray()) {
       outputStr += decryptCharacter(c);
     }
     return outputStr;
@@ -23,7 +26,7 @@ public class CaesarCipher {
     int offsettedC = c - A_VALUE;
     int newC = offsettedC - this.offset;
     newC %= ALPHABET_LENGTH;
-    if(newC < 0) newC += ALPHABET_LENGTH;
+    if (newC < 0) newC += ALPHABET_LENGTH;
     newC += A_VALUE;
     return (char) newC;
   }
