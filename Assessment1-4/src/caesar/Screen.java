@@ -8,7 +8,6 @@ public class Screen extends JFrame {
   public Screen(String title) {
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-      throw new ClassNotFoundException();
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
       System.out.println(e + ": Look and feel not supported, returning to default look and feel");
     }
