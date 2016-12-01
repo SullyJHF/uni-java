@@ -6,10 +6,10 @@ package text;
  */
 
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 public class Unique {
   FileHandler fileHandler;
@@ -37,7 +37,7 @@ public class Unique {
         System.out.println(" - Done!");
       }
     } else {
-      try (Stream<Path> paths = Files.walk(Paths.get("textfiles"))) {
+      try (DirectoryStream<Path> paths = Files.newDirectoryStream(Paths.get("textfiles"), "*.txt")) {
         paths.forEach(filePath -> {
           String filePathStr = filePath.toString();
           int lastDot = filePathStr.lastIndexOf('.');
