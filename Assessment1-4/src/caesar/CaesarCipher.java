@@ -2,7 +2,7 @@ package caesar;
 
 public class CaesarCipher {
   private final int ALPHABET_LENGTH = 26;
-  private final int A_VALUE = Character.valueOf('A');
+  private final char A_VALUE = 'A';
   private int offset;
 
   public CaesarCipher() {}

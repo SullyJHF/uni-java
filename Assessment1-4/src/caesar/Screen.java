@@ -13,8 +13,10 @@ public class Screen extends JFrame {
     }
     setTitle(title);
     setResizable(false);
+
     InputPane inputPane = new InputPane();
     add(inputPane);
+
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     setLocationRelativeTo(null);
