@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 public class OrderPanel extends JPanel {
@@ -19,7 +20,7 @@ public class OrderPanel extends JPanel {
 
   private JLabel copiesLabel;
 
-  private SpinnerNumberModel copiesModel;
+  private SpinnerModel copiesModel;
   private JSpinner copiesSpinner;
 
   private String[] formats = {"Ebook", "Softcover", "Hardcover"};
@@ -42,6 +43,7 @@ public class OrderPanel extends JPanel {
     super(new GridBagLayout());
     setPreferredSize();
     initComponents();
+
     gbc.insets = DEFAULT_INSETS;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.anchor = GridBagConstraints.CENTER;
@@ -78,10 +80,12 @@ public class OrderPanel extends JPanel {
   private void initComponents() {
     gbc = new GridBagConstraints();
     copiesModel = new SpinnerNumberModel(1, 1, 100, 1);
-    copiesSpinner = new JSpinner(copiesModel);
+
     copiesLabel = new JLabel("Copies:");
 
-    copiesSpinner = new JSpinner();
+    copiesSpinner = new JSpinner(copiesModel);
+
+    copiesLabel.setLabelFor(copiesSpinner);
 
     formatMenu = new SelectMenu(formats);
 
