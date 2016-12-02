@@ -61,14 +61,18 @@ public class OrderPanel extends JPanel {
     add(deliveryMenu, gbc);
 
 
+    gbc.fill = GridBagConstraints.NONE;
+    gbc.anchor = GridBagConstraints.FIRST_LINE_START;
     gbc.gridwidth = 2;
     gbc.gridx = 0;
     gbc.gridy = 1;
     add(submitButton, gbc);
+    gbc.anchor = GridBagConstraints.FIRST_LINE_END;
     gbc.gridx = 2;
     add(resetButton, gbc);
 
 
+    gbc.anchor = GridBagConstraints.FIRST_LINE_START;
     gbc.fill = GridBagConstraints.BOTH;
     gbc.weighty = 1.0;
     gbc.gridwidth = 4;
@@ -101,7 +105,9 @@ public class OrderPanel extends JPanel {
     outputArea.setWrapStyleWord(true);
 
     submitButton = new JButton("Submit");
+    submitButton.setPreferredSize(new Dimension(150, 22));
     resetButton = new JButton("Reset");
+    resetButton.setPreferredSize(new Dimension(150, 22));
   }
 
   private void setPreferredSize() {
