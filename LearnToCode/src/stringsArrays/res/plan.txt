@@ -1,0 +1,5 @@
+arrays
+gettings nth character of string
+iterating over string and printing
+iterating over string and removing non-alphabetic
+what is ASCII, 
