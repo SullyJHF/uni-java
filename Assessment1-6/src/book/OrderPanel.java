@@ -103,19 +103,19 @@ public class OrderPanel extends JPanel {
     formatMenu.setAffectsDisable(formatDisables);
     formatMenu.setAffectsDefault(formatDefaults);
 
+    submitButton = new JButton("Submit");
+    submitButton.setPreferredSize(new Dimension(150, 22));
+    submitButton.addActionListener(e -> submitOptions());
+
+    resetButton = new JButton("Reset");
+    resetButton.setPreferredSize(new Dimension(150, 22));
+    resetButton.addActionListener(e -> resetInputs());
+
     outputArea = new JTextArea();
     outputArea.setEditable(false);
     outputArea.setLineWrap(true);
     outputArea.setWrapStyleWord(true);
     outputArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-    submitButton = new JButton("Submit");
-    submitButton.setPreferredSize(new Dimension(150, 22));
-    submitButton.addActionListener(new SubmitListener(this));
-
-    resetButton = new JButton("Reset");
-    resetButton.setPreferredSize(new Dimension(150, 22));
-    resetButton.addActionListener(new ResetListener(this));
   }
 
   private void setPreferredSize() {
@@ -126,21 +126,29 @@ public class OrderPanel extends JPanel {
     copiesSpinner.setValue(1);
     formatMenu.resetValues();
     deliveryMenu.resetValues();
+    outputArea.setText("");
   }
 
   public void submitOptions() {
     String output = "";
+    output += "Copies: " + copiesSpinner.getValue() + "\n";
+
     JRadioButton formatSelected = formatMenu.getSelectedButton();
     JRadioButton deliverySelected = deliveryMenu.getSelectedButton();
+
     if(formatSelected == null) {
       JOptionPane.showMessageDialog(this, "Please select a format", "Warning", JOptionPane.WARNING_MESSAGE);
       return;
     }
+    output += "Format: " + formatSelected.getText() + "\n";
 
+    // this will never ever get run unless the user can find out a way to deselect a radio button
     if(deliverySelected == null) {
       JOptionPane.showMessageDialog(this, "Please select a delivery method", "Warning", JOptionPane.WARNING_MESSAGE);
       return;
     }
-    outputArea.setText(formatSelected + " " + deliverySelected);
+    output += "Delivery Method: " + deliverySelected.getText() + "\n";
+
+    outputArea.setText(output);
   }
 }
