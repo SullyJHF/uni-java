@@ -5,13 +5,14 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class Screen extends JFrame {
-  public Screen(String title) {
+  private final String TITLE = "Book Order Form";
+  public Screen() {
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
       System.out.println(e + ": Look and feel not supported, returning to default look and feel");
     }
-    setTitle(title);
+    setTitle(TITLE);
     setResizable(false);
 
     OrderPanel orderPanel = new OrderPanel();

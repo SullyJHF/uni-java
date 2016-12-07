@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 public class Main {
   private void createAndShowGUI() {
-    Screen screen = new Screen("Book Order");
+    Screen screen = new Screen();
     screen.setVisible(true);
   }
 
