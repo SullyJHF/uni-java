@@ -42,6 +42,13 @@ public class SelectMenu extends JPanel {
     }
   }
 
+  protected JRadioButton getSelectedButton() {
+    for(JRadioButton button : listItems) {
+      if(button.isSelected()) return button;
+    }
+    return null;
+  }
+
   public void setMenuAffects(SelectMenu menuAffects) {
     this.menuAffects = menuAffects;
   }

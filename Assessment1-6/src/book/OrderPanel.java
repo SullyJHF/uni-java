@@ -9,7 +9,9 @@ import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.SpinnerModel;
@@ -109,6 +111,8 @@ public class OrderPanel extends JPanel {
 
     submitButton = new JButton("Submit");
     submitButton.setPreferredSize(new Dimension(150, 22));
+    submitButton.addActionListener(new SubmitListener(this));
+
     resetButton = new JButton("Reset");
     resetButton.setPreferredSize(new Dimension(150, 22));
     resetButton.addActionListener(new ResetListener(this));
@@ -122,5 +126,21 @@ public class OrderPanel extends JPanel {
     copiesSpinner.setValue(1);
     formatMenu.resetValues();
     deliveryMenu.resetValues();
+  }
+
+  public void submitOptions() {
+    String output = "";
+    JRadioButton formatSelected = formatMenu.getSelectedButton();
+    JRadioButton deliverySelected = deliveryMenu.getSelectedButton();
+    if(formatSelected == null) {
+      JOptionPane.showMessageDialog(this, "Please select a format", "Warning", JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+
+    if(deliverySelected == null) {
+      JOptionPane.showMessageDialog(this, "Please select a delivery method", "Warning", JOptionPane.WARNING_MESSAGE);
+      return;
+    }
+    outputArea.setText(formatSelected + " " + deliverySelected);
   }
 }
