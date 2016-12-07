@@ -1,10 +1,12 @@
 package book;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -103,6 +105,7 @@ public class OrderPanel extends JPanel {
     outputArea.setEditable(false);
     outputArea.setLineWrap(true);
     outputArea.setWrapStyleWord(true);
+    outputArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
     submitButton = new JButton("Submit");
     submitButton.setPreferredSize(new Dimension(150, 22));
