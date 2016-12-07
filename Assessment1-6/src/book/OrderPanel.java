@@ -111,9 +111,16 @@ public class OrderPanel extends JPanel {
     submitButton.setPreferredSize(new Dimension(150, 22));
     resetButton = new JButton("Reset");
     resetButton.setPreferredSize(new Dimension(150, 22));
+    resetButton.addActionListener(new ResetListener(this));
   }
 
   private void setPreferredSize() {
     setPreferredSize(new Dimension(WIDTH, HEIGHT));
+  }
+
+  public void resetInputs() {
+    copiesSpinner.setValue(1);
+    formatMenu.resetValues();
+    deliveryMenu.resetValues();
   }
 }

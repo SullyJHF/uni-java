@@ -79,4 +79,11 @@ public class SelectMenu extends JPanel {
   public JRadioButton[] getButtons() {
     return listItems;
   }
+
+  public void resetValues() {
+    list.clearSelection();
+    for(JRadioButton button : listItems) {
+      button.setEnabled(true);
+    }
+  }
 }
