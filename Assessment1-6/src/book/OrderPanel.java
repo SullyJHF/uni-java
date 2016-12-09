@@ -132,6 +132,7 @@ public class OrderPanel extends JPanel {
   public void submitOptions() {
     String output = "";
     output += "Copies: " + copiesSpinner.getValue() + "\n";
+    // the copies can never be < 1 so will never be invalid input
 
     JRadioButton formatSelected = formatMenu.getSelectedButton();
     JRadioButton deliverySelected = deliveryMenu.getSelectedButton();
