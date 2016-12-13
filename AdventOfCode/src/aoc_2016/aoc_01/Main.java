@@ -9,5 +9,8 @@ public class Main {
     System.out.println("Current Position: (" + santa.getPos().x + ", " + santa.getPos().y + ")");
     System.out.println("Total distance travelled: " + santa.getDistanceTravelled());
     System.out.println("Shortest distance travelled: " + santa.getShortestDistTravelled());
+    System.out.println();
+    System.out.println("Revisited: (" + santa.getFirstRevisitedPos().x + ", " + santa.getFirstRevisitedPos().y + ")");
+//    santa.printPositions();
   }
 }

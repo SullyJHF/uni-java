@@ -1,10 +1,14 @@
 package aoc_2016.aoc_01;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Person {
   private Point startPos = new Point();
   private Point pos = new Point();
+  private List<Point> positions;
   private int distanceTravelled;
   private int curD;
   private final int TOT_DIRS = 4;
@@ -14,6 +18,7 @@ public class Person {
   // 3 west
 
   public Person() {
+    this.positions = new ArrayList<Point>();
     this.startPos.setLocation(0, 0);
     this.pos = this.startPos;
     this.curD = 0;
@@ -28,14 +33,14 @@ public class Person {
 
   public void move(Input i) {
     int amount = i.getAmount();
-    System.out.println("Current direction: " + this.curD);
+//    System.out.println("Current direction: " + this.curD);
     int dirChange = i.getDirection();
-    System.out.println("Turning: " + (i.getDirection() == 1 ? "RIGHT" : "LEFT"));
+//    System.out.println("Turning: " + (i.getDirection() == 1 ? "RIGHT" : "LEFT"));
     this.curD += dirChange;
     if(curD < 0) curD += TOT_DIRS;
     curD %= TOT_DIRS;
 
-    System.out.println("Current direction: " + this.curD);
+//    System.out.println("Current direction: " + this.curD);
 
     switch(curD) {
     case 0:
@@ -51,13 +56,15 @@ public class Person {
       this.pos.x -= amount;
       break;
     }
-    System.out.println("Amount to move: " + amount);
+//    System.out.println("Amount to move: " + amount);
 
-    System.out.println("New position: (" + this.pos.x + ", " + this.pos.y + ")");
+//    System.out.println("New position: (" + this.pos.x + ", " + this.pos.y + ")");
+
+    this.positions.add(new Point(this.pos));
 
     this.distanceTravelled += amount;
-    System.out.println("Distance travelled: " + this.distanceTravelled);
-    System.out.println();
+//    System.out.println("Distance travelled: " + this.distanceTravelled);
+//    System.out.println();
   }
 
   public int getDistanceTravelled() {
@@ -66,6 +73,32 @@ public class Person {
 
   public int getShortestDistTravelled() {
     return this.pos.x + this.pos.y;
+  }
+
+  public void printPositions() {
+    for(Point p : this.positions) {
+      System.out.println(p);
+    }
+  }
+
+  public Point getFirstRevisitedPos() {
+    ArrayList<Point> revisited = new ArrayList<Point>();
+    for(Point p : this.positions) {
+      if(Collections.frequency(this.positions, p) > 1) revisited.add(new Point(p));
+    }
+
+    int smallestIndex = Integer.MAX_VALUE;
+    for(Point p : revisited) {
+      System.out.println(p + " " + this.positions.indexOf(p));
+      int index = this.positions.indexOf(p);
+      if(smallestIndex > index) smallestIndex = index;
+    }
+    System.out.println(smallestIndex);
+    // this is right if it was the first position actually stopped at
+    // but gotta store every single position that was moved to
+    // loop through i.getAmount() in move() and add 1 each time, adding it to the array
+    // then do this exact same thing
+    return this.positions.get(smallestIndex);
   }
 
   public Point getStartPos() {
