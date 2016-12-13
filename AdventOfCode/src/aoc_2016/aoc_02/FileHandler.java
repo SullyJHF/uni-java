@@ -25,4 +25,8 @@ public class FileHandler {
   public String getInput() {
     return input.toString();
   }
+
+  public String[] getInputsAsArray() {
+    return input.toString().split("\n");
+  }
 }
