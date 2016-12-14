@@ -8,11 +8,14 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class Screen extends JPanel {
+  public static final int WIDTH = 400;
+  public static final int HEIGHT = 600;
   private Bird bird;
 
   public Screen() {
-    setPreferredSize(new Dimension(600, 400));
+    setPreferredSize(new Dimension(WIDTH, HEIGHT));
     setBackground(Color.GRAY);
+    bird = new Bird();
   }
 
   public void render() {
@@ -26,9 +29,7 @@ public class Screen extends JPanel {
 
   private void doDrawing(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
-    g2d.setColor(Color.BLACK);
-    g2d.fillRect(bird.getX(), bird.getY(), bird.getWidth(), bird.getHeight());
-    g2d.drawImage(bird.getImage(), bird.getY(), bird.getY(), null);
+    g2d.drawImage(bird.getImage(), bird.getX(), bird.getY(), null);
     g2d.dispose();
   }
 

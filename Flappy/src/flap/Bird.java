@@ -1,31 +1,45 @@
 package flap;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Bird {
+  BufferedImage birdImage;
   private int x, y, w, h;
 
-  public void update() {
+  public Bird() {
+    w = 20;
+    h = 20;
+    birdImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+    x = 20;
+    y = 20;
+  }
 
+  public void update() {
+    y++;
   }
 
   public BufferedImage getImage() {
-    return null;
+    Graphics2D g2d = (Graphics2D) birdImage.getGraphics();
+    g2d.setColor(Color.WHITE);
+    g2d.fillRect(0, 0, w, h);
+    return birdImage;
   }
 
   public int getX() {
-    return 0;
+    return x;
   }
 
   public int getY() {
-    return 0;
+    return y;
   }
 
   public int getWidth() {
-    return 0;
+    return w;
   }
 
   public int getHeight() {
-    return 0;
+    return h;
   }
 }
