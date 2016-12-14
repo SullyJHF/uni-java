@@ -5,12 +5,16 @@ import javax.swing.JFrame;
 public class Game extends JFrame implements Runnable {
   private Thread thread;
   public Screen screen;
+  public InputHandler inputHandler;
   private boolean running = false;
 
   public Game() {
     super("Flappy");
+    inputHandler = new InputHandler();
     screen = new Screen();
     add(screen);
+    addKeyListener(inputHandler);
+    addFocusListener(inputHandler);
     pack();
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +59,8 @@ public class Game extends JFrame implements Runnable {
 
       boolean ticked = false;
       while (unprocessedSeconds > secondsPerTick) {
-        screen.tick();
+        screen.tick(inputHandler.keys);
+
         unprocessedSeconds -= secondsPerTick;
         ticked = true;
 

@@ -29,11 +29,11 @@ public class Screen extends JPanel {
 
   private void doDrawing(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
-    g2d.drawImage(bird.getImage(), bird.getX(), bird.getY(), null);
+    g2d.drawImage(bird.getImage(), (int) bird.getX(), (int) bird.getY(), null);
     g2d.dispose();
   }
 
-  public void tick() {
-    bird.update();
+  public void tick(boolean[] keys) {
+    bird.update(keys);
   }
 }
