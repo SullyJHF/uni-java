@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
@@ -29,6 +30,10 @@ public class Screen extends JPanel {
 
   private void doDrawing(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
+    RenderingHints rh = new RenderingHints(
+        RenderingHints.KEY_ANTIALIASING,
+        RenderingHints.VALUE_ANTIALIAS_ON);
+    g2d.setRenderingHints(rh);
     g2d.drawImage(bird.getImage(), (int) bird.getX(), (int) bird.getY(), null);
     g2d.dispose();
   }

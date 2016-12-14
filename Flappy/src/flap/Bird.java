@@ -2,7 +2,9 @@ package flap;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class Bird {
@@ -51,8 +53,12 @@ public class Bird {
 
   public BufferedImage getImage() {
     Graphics2D g2d = (Graphics2D) birdImage.getGraphics();
+    RenderingHints rh = new RenderingHints(
+        RenderingHints.KEY_ANTIALIASING,
+        RenderingHints.VALUE_ANTIALIAS_ON);
+    g2d.setRenderingHints(rh);
     g2d.setColor(Color.WHITE);
-    g2d.fillOval(0, 0, w, h);
+    g2d.fill(new Ellipse2D.Double(0, 0, w, h));
     return birdImage;
   }
 
