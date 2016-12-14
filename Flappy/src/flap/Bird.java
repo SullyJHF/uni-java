@@ -12,10 +12,10 @@ public class Bird {
   private float x, y;
   private int w, h;
   private float downSpeed = 0;
-  private final float THRUST = -10.0f;
+  private final float THRUST = -12.5f;
   private final float MIN_DOWN_SPEED = -7.5f;
   private final float MAX_DOWN_SPEED = 10;
-  private float gravity = 0.2f;
+  private float gravity = 0.25f;
   private boolean prevUp = false;
   private boolean up = false;
   private boolean gameOver = false;
