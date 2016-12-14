@@ -16,5 +16,16 @@ public class Main {
       totalCount++;
     }
     System.out.println(totalCount + " : " + validCount);
+
+    tris = fh.getExTriangles();
+    totalCount = 0;
+    validCount = 0;
+    for (int[] tri : tris) {
+      Triangle triangle = new Triangle(tri);
+      if (triangle.isValid()) validCount++;
+      triangles.add(triangle);
+      totalCount++;
+    }
+    System.out.println(totalCount + " : " + validCount);
   }
 }
