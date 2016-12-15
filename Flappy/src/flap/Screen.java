@@ -2,6 +2,7 @@ package flap;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -17,6 +18,10 @@ public class Screen extends JPanel {
   private ArrayList<Gap> gaps;
 
   private int tickCount = 0;
+
+  private int score = 0;
+
+  public boolean gameOver = false;
 
   public Screen() {
     setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -44,6 +49,9 @@ public class Screen extends JPanel {
     for(Gap gap : gaps) {
       g2d.drawImage(gap.getImage(), gap.getX(), 0, null);
     }
+    g2d.setColor(Color.WHITE);
+    g2d.setFont(new Font(g2d.getFont().getFontName(), Font.PLAIN, 40));
+    g2d.drawString(String.valueOf(score), 30, 60);
     g2d.dispose();
   }
 
@@ -51,6 +59,7 @@ public class Screen extends JPanel {
     if(keys[KeyEvent.VK_ESCAPE]) System.exit(0);
     if(tickCount % 90 == 0) {
       gaps.add(new Gap());
+      System.out.println(score);
     }
     bird.update(keys);
     for(int i = 0; i < gaps.size(); i++) {
@@ -58,6 +67,13 @@ public class Screen extends JPanel {
       gap.update();
       if(gap.dead()) {
         gaps.remove(i);
+      }
+      if(bird.score(gap)) {
+        score += 1;
+        gap.scored = true;
+      }
+      if(bird.collide(gap)) {
+        gameOver = true;
       }
     }
     tickCount++;

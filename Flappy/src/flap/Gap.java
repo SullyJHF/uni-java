@@ -17,6 +17,8 @@ public class Gap {
   private float speed = -3f;
   private BufferedImage image;
   private Random r;
+  public boolean scored;
+  private Rectangle2D r1, r2;
 
   public Gap() {
     r = new Random();
@@ -24,6 +26,9 @@ public class Gap {
     pos = r.nextInt(Screen.HEIGHT - dist - MIN_POS) + MIN_POS;
     x = Screen.WIDTH + WIDTH;
     image = new BufferedImage(WIDTH, Screen.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    scored = false;
+    r1 = new Rectangle2D.Double(0, 0, WIDTH, pos);
+    r2 = new Rectangle2D.Double(0, pos + dist, WIDTH, Screen.HEIGHT);
   }
 
   public void update() {
@@ -33,8 +38,6 @@ public class Gap {
   public BufferedImage getImage() {
     Graphics2D g2d = (Graphics2D) image.getGraphics();
     g2d.setColor(Color.WHITE);
-    Rectangle2D r1 = new Rectangle2D.Double(0, 0, WIDTH, pos);
-    Rectangle2D r2 = new Rectangle2D.Double(0, pos + dist, WIDTH, Screen.HEIGHT);
     g2d.fill(r1);
     g2d.fill(r2);
     return image;
@@ -44,7 +47,19 @@ public class Gap {
     return x;
   }
 
+  public int getWidth() {
+    return WIDTH;
+  }
+
   public boolean dead() {
     return x + WIDTH <= 0;
+  }
+
+  public Rectangle2D getTop() {
+    return new Rectangle2D.Double(x, 0, WIDTH, pos);
+  }
+
+  public Rectangle2D getBot() {
+    return new Rectangle2D.Double(x, pos + dist, WIDTH, Screen.HEIGHT);
   }
 }

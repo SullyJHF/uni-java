@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Bird {
@@ -32,22 +33,22 @@ public class Bird {
     up = keys[KeyEvent.VK_SPACE];
     y += downSpeed;
     downSpeed += gravity;
-    if(up && !prevUp) downSpeed += THRUST;
-    if(downSpeed >= MAX_DOWN_SPEED) downSpeed = MAX_DOWN_SPEED;
-    if(downSpeed <= MIN_DOWN_SPEED) downSpeed = MIN_DOWN_SPEED;
+    if (up && !prevUp) downSpeed += THRUST;
+    if (downSpeed >= MAX_DOWN_SPEED) downSpeed = MAX_DOWN_SPEED;
+    if (downSpeed <= MIN_DOWN_SPEED) downSpeed = MIN_DOWN_SPEED;
     checkCollision();
     prevUp = up;
   }
 
   private void checkCollision() {
-    if(y <= 0) {
+    if (y <= 0) {
       y = 0;
       downSpeed = 0.1f;
     }
-    if(y + h >= Screen.HEIGHT) {
+    if (y + h >= Screen.HEIGHT) {
       y = Screen.HEIGHT - h;
       downSpeed = 0;
-      gameOver  = true;
+      gameOver = true;
     }
   }
 
@@ -76,5 +77,20 @@ public class Bird {
 
   public int getHeight() {
     return h;
+  }
+
+  public boolean score(Gap gap) {
+    if (!gap.scored && gap.getX() - x < 1) { return true; }
+    return false;
+  }
+
+  public boolean collide(Gap gap) {
+    Ellipse2D birdCircle = new Ellipse2D.Double(x, y, w, h);
+    Rectangle2D top = gap.getTop();
+    Rectangle2D bot = gap.getBot();
+    if (birdCircle.getBounds2D().intersects(top.getBounds2D()) ||
+        birdCircle.getBounds2D().intersects(bot.getBounds2D()))
+      return true;
+    return false;
   }
 }

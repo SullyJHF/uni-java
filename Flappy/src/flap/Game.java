@@ -60,7 +60,7 @@ public class Game extends JFrame implements Runnable {
       boolean ticked = false;
       while (unprocessedSeconds > secondsPerTick) {
         screen.tick(inputHandler.keys);
-
+        if(screen.gameOver) running = false;
         unprocessedSeconds -= secondsPerTick;
         ticked = true;
 
