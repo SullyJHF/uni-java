@@ -88,8 +88,8 @@ public class Bird {
     Ellipse2D birdCircle = new Ellipse2D.Double(x, y, w, h);
     Rectangle2D top = gap.getTop();
     Rectangle2D bot = gap.getBot();
-    if (birdCircle.getBounds2D().intersects(top.getBounds2D()) ||
-        birdCircle.getBounds2D().intersects(bot.getBounds2D()))
+    if (birdCircle.intersects(top.getBounds2D()) ||
+        birdCircle.intersects(bot.getBounds2D()))
       return true;
     return false;
   }
