@@ -49,14 +49,17 @@ public class OrderPanel extends JPanel {
     initComponents();
 
     gbc.insets = DEFAULT_INSETS;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.anchor = GridBagConstraints.CENTER;
+    gbc.fill = GridBagConstraints.NONE;
+    gbc.anchor = GridBagConstraints.EAST;
     gbc.weightx = 0.25;
     gbc.weighty = 0.0;
 
     gbc.gridx = 0;
     gbc.gridy = 0;
+    gbc.anchor = GridBagConstraints.EAST;
     add(copiesLabel, gbc);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.anchor = GridBagConstraints.CENTER;
     gbc.gridx = 1;
     add(copiesSpinner, gbc);
     gbc.gridx = 2;
