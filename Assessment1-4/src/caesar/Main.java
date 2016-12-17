@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 public class Main {
   private static void createAndShowGUI() {
-    Screen screen = new Screen("Decrypt Caesar Ciphers");
+    Screen screen = new Screen("Decrypt Caesars Ciphers");
     screen.setVisible(true);
   }
 

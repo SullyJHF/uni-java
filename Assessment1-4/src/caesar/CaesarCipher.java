@@ -12,18 +12,19 @@ public class CaesarCipher {
   }
 
   public String decryptString(String input) {
-    String tempStr = input.replaceAll(" ", "").toUpperCase();
-    String outputStr = new String();
+    String tempStr = input.replaceAll("\\s+", "").toUpperCase();
+    StringBuilder outputStr = new StringBuilder();
     for (char c : tempStr.toCharArray()) {
-      outputStr += decryptCharacter(c);
+      outputStr.append(decryptCharacter(c));
     }
-    return outputStr;
+    return outputStr.toString();
   }
 
   public char decryptCharacter(char c) {
+    if(!Character.isLetter(c)) return c;
     int offsettedC = c - A_VALUE;
     int newC = offsettedC - this.offset;
-    newC %= ALPHABET_LENGTH;
+    // newC %= ALPHABET_LENGTH;
     if (newC < 0) newC += ALPHABET_LENGTH;
     newC += A_VALUE;
     return (char) newC;
