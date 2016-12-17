@@ -101,6 +101,7 @@ public class OrderPanel extends JPanel {
     formatMenu = new SelectMenu(formats);
 
     deliveryMenu = new SelectMenu(deliveryMethods);
+    deliveryMenu.disableAll();
 
     formatMenu.setMenuAffects(deliveryMenu);
     formatMenu.setAffectsDisable(formatDisables);
@@ -128,7 +129,7 @@ public class OrderPanel extends JPanel {
   public void resetInputs() {
     copiesSpinner.setValue(1);
     formatMenu.resetValues();
-    deliveryMenu.resetValues();
+    deliveryMenu.disableAll();
     outputArea.setText("");
   }
 

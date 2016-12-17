@@ -93,4 +93,11 @@ public class SelectMenu extends JPanel {
       button.setEnabled(true);
     }
   }
+
+  public void disableAll() {
+    list.clearSelection();
+    for(JRadioButton button : listItems) {
+      button.setEnabled(false);
+    }
+  }
 }
