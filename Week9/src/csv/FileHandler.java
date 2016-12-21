@@ -16,14 +16,14 @@ public class FileHandler {
     try {
       s = new Scanner(new BufferedReader(new FileReader(path.toString())));
       s.useDelimiter(",");
-      while(s.hasNext()) {
+      while (s.hasNext()) {
         float number = s.nextFloat();
         numbers.add(number);
       }
-    } catch(InputMismatchException | IOException e) {
+    } catch (InputMismatchException | IOException e) {
       e.printStackTrace();
     } finally {
-      if(s != null) s.close();
+      if (s != null) s.close();
     }
   }
 
