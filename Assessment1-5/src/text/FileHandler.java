@@ -51,7 +51,7 @@ public class FileHandler {
     try {
       Path outputPath = Paths.get("output");
       // make sure to create the output folder if it doesn't exist
-      if(Files.notExists(outputPath)) Files.createDirectory(outputPath);
+      if (Files.notExists(outputPath)) Files.createDirectory(outputPath);
       out = new PrintWriter("output/" + outputFilename);
       // loop through each word and add it to the output file
       for (String word : uniqueWords) {
