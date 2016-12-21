@@ -10,7 +10,11 @@ public class IncPrintDemo {
       @Override
       public void run() {
         for (int i = 0; i < 1000000; i++) {
+          System.out.println(Thread.currentThread().getName());
           n++;
+          synchronized(lock) {
+            lock.notify();
+          }
         }
         done = true;
         synchronized (lock) {
@@ -26,11 +30,11 @@ public class IncPrintDemo {
           while (!done) {
             try {
               lock.wait();
+              System.out.println(Thread.currentThread().getName() + " " + n);
             } catch (InterruptedException e) {
               e.printStackTrace();
             }
           }
-          System.out.println(n);
         }
       }
     });
