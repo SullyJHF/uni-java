@@ -23,11 +23,11 @@ public class CaesarCipher {
   public char decryptCharacter(char c) {
     if(!Character.isLetter(c)) return c;
     int offsettedC = c - A_VALUE;
-    int newC = offsettedC - this.offset;
+    offsettedC -= this.offset;
     // newC %= ALPHABET_LENGTH;
-    if (newC < 0) newC += ALPHABET_LENGTH;
-    newC += A_VALUE;
-    return (char) newC;
+    if (offsettedC < 0) offsettedC += ALPHABET_LENGTH;
+    offsettedC += A_VALUE;
+    return (char) offsettedC;
   }
 
   public void setOffset(int offset) {
