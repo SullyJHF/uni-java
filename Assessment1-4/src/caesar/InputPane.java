@@ -138,7 +138,10 @@ public class InputPane extends JPanel {
     offsetSlider.setMinorTickSpacing(1);
     offsetSlider.setPaintTicks(true);
     offsetSlider.setPaintLabels(true);
-    offsetSlider.addChangeListener(e -> updateOffsetLabel(offsetSlider.getValue()));
+    offsetSlider.addChangeListener(e -> {
+      updateOffsetLabel(offsetSlider.getValue());
+      decryptInput();
+    });
 
     offsetLabel = new JLabel("Offset:");
     offsetLabel.setFont(MONO_FONT);
@@ -153,7 +156,6 @@ public class InputPane extends JPanel {
     if (value < 10) labelStr += value + " ";
     else labelStr += value;
     offsetNumLabel.setText(labelStr);
-    decryptInput();
   }
 
   private void decryptInput() {
