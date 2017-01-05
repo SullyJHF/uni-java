@@ -12,7 +12,7 @@ public class CaesarCipher {
   }
 
   public String decryptString(String input) {
-    String tempStr = input.replaceAll("\\s+", "").toUpperCase();
+    String tempStr = input.toUpperCase();
     StringBuilder outputStr = new StringBuilder();
     for (char c : tempStr.toCharArray()) {
       outputStr.append(decryptCharacter(c));
