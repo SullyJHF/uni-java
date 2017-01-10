@@ -1,9 +1,6 @@
 package text;
 
-/*
- * Assessment1 part 5
- * S182016
- */
+// S182016
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;

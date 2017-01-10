@@ -40,7 +40,8 @@ public class TextHandler {
   }
 
   private void removePunc() {
-    // regex to preserve all non punctuation characters;
+    // regex to preserve all non punctuation characters
+    // (also preserves dashes (-) for hyphenated words
     this.text = this.text.replaceAll("[^a-zA-Z\\s-]", "").replaceAll("\\s+", " ");
   }
 
@@ -69,7 +70,7 @@ public class TextHandler {
   }
 
   public List<String> getSortedUniqueWords() {
-    // just return the List<String> uniqueWords
+    // return the List<String> uniqueWords
     return this.uniqueWords;
   }
 
