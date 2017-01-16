@@ -72,7 +72,16 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
         ball.yVel *= -FRICTION * (1 - (ball.size / (MAX_BALL_SIZE + MIN_BALL_SIZE)));
         ball.xVel *= FRICTION;
       }
-      if (ball.x + ball.size >= SCREEN_WIDTH || ball.x <= 0) {
+      if(ball.y <= 0) {
+        ball.y = 0;
+        ball.yVel *= -FRICTION * (1 - (ball.size / (MAX_BALL_SIZE + MIN_BALL_SIZE)));
+      }
+      if (ball.x + ball.size >= SCREEN_WIDTH) {
+        ball.x = SCREEN_WIDTH - ball.size;
+        ball.xVel = -ball.xVel;
+      }
+      if(ball.x <= 0) {
+        ball.x = 0;
         ball.xVel = -ball.xVel;
       }
       ball.yVel += GRAVITY;
@@ -114,15 +123,18 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
   @Override
   public void mouseDragged(MouseEvent e) {
     int ballSize = r.nextInt(MAX_BALL_SIZE) + MIN_BALL_SIZE;
-    float xVel = (r.nextFloat() * 10) - 5;
-    float yVel = (r.nextFloat() * 10) - 20;
+    float xVel = (r.nextFloat() * 20) - 10;
+    float yVel = (r.nextFloat() * 20) - 10;
     balls.add(new Ball(
         e.getX() - ballSize / 2,
         e.getY() - ballSize / 2,
         ballSize,
         yVel,
         xVel,
-        new Color(r.nextFloat(), r.nextFloat(), r.nextFloat())));
+        new Color(
+            r.nextFloat(),
+            r.nextFloat(),
+            r.nextFloat())));
   }
 
   @Override
