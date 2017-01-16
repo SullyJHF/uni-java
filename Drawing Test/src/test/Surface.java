@@ -86,7 +86,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
       }
       ball.yVel += GRAVITY;
       ++ball.aliveTicks;
-      if (ball.aliveTicks == 5000) balls.remove(ball);
+      if (ball.aliveTicks == 500) balls.remove(ball);
     }
     repaint();
   }
