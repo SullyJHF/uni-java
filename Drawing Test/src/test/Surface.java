@@ -26,7 +26,9 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
   private final int DELAY = 16;
   private final int INITIAL_DELAY = 50;
 
-  private final float GRAVITY = 1.0f;
+  private int frameCount = 0;
+
+  private final float GRAVITY = 0.7f;
 
   private final float FRICTION = 0.7f;
 
@@ -50,7 +52,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     for (Ball ball : balls) {
       g2d.setColor(ball.color);
-      g2d.fillOval((int)ball.x, (int)ball.y, ball.size, ball.size);
+      g2d.fillOval((int) ball.x, (int) ball.y, ball.size, ball.size);
     }
   }
 
@@ -62,6 +64,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 
   @Override
   public void actionPerformed(ActionEvent e) {
+    ++frameCount;
     for (int i = balls.size() - 1; i >= 0; i--) {
       Ball ball = balls.get(i);
       ball.y += ball.yVel;
@@ -72,7 +75,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
         ball.yVel *= -FRICTION * (1 - (ball.size / (MAX_BALL_SIZE + MIN_BALL_SIZE)));
         ball.xVel *= FRICTION;
       }
-      if(ball.y <= 0) {
+      if (ball.y <= 0) {
         ball.y = 0;
         ball.yVel *= -FRICTION * (1 - (ball.size / (MAX_BALL_SIZE + MIN_BALL_SIZE)));
       }
@@ -80,7 +83,7 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
         ball.x = SCREEN_WIDTH - ball.size;
         ball.xVel = -ball.xVel;
       }
-      if(ball.x <= 0) {
+      if (ball.x <= 0) {
         ball.x = 0;
         ball.xVel = -ball.xVel;
       }
@@ -122,12 +125,24 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
 
   @Override
   public void mouseDragged(MouseEvent e) {
+    if (frameCount % 5 == 0) {
+      makeRandomBall(e.getX(), e.getY());
+    }
+  }
+
+  @Override
+  public void mouseMoved(MouseEvent arg0) {
+    // TODO Auto-generated method stub
+
+  }
+
+  private void makeRandomBall(int x, int y) {
     int ballSize = r.nextInt(MAX_BALL_SIZE) + MIN_BALL_SIZE;
     float xVel = (r.nextFloat() * 20) - 10;
     float yVel = (r.nextFloat() * 20) - 10;
     balls.add(new Ball(
-        e.getX() - ballSize / 2,
-        e.getY() - ballSize / 2,
+        x - ballSize / 2,
+        y - ballSize / 2,
         ballSize,
         yVel,
         xVel,
@@ -135,11 +150,5 @@ public class Surface extends JPanel implements ActionListener, MouseListener, Mo
             r.nextFloat(),
             r.nextFloat(),
             r.nextFloat())));
-  }
-
-  @Override
-  public void mouseMoved(MouseEvent arg0) {
-    // TODO Auto-generated method stub
-
   }
 }
